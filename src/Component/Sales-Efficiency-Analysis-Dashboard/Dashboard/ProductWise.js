@@ -35,7 +35,12 @@ export default function ProductWise() {
 		chartId: 'ProductWise',
 		Xaxis: name,
 		Yaxis: weight,
-		prclst:prc
+		prclst:prc,
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true  
+		}
 	}
 
 	let radialdata = {
@@ -46,6 +51,11 @@ export default function ProductWise() {
 		chartId: 'ProductWise',
 		radiusAxis: name,
 		seriesdata: weight,
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true  
+		}
 	}
 	let optiondonut = {
 		themeId: localStorage.getItem("ThemeIndex"),
@@ -61,7 +71,11 @@ export default function ProductWise() {
 			color: 'white',
 			fontWeight: 'bold',
 		},
-
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true  
+		}
 	}
 
 	let optionpie = {
@@ -70,20 +84,25 @@ export default function ProductWise() {
 		height: '100%',
 		width: '100%',
 		propdata: data,
-		chartId: 'PieChartProductWise',
+		chartId: 'ProductWise',
 		label: {
 			position: 'inside',
 			formatter: '{d}%',
 			color: 'white',
 			fontWeight: 'bold',
 		},
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true  
+		}
 	}
 	let optradialbar = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		charttype: 'semi-donut',
 		height: '100%',
 		width: '100%',
-		chartId: 'RadialBarcharProductWise',
+		chartId: 'ProductWise',
 		propdata: data,
 		position: 'center',
 		fontsize: 20,
@@ -93,12 +112,13 @@ export default function ProductWise() {
 			color: 'white',
 			fontWeight: 'bold',
 		},
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true  
+		}
 	}
-	const options_Bar = ProductWise_Bar(name, inputdata['column'])
-	const series = [{
-		name: 'weight',
-		data: weight
-	}]
+
 
 	const [flag, setflag] = useState()
 	const ChartType = "bar"

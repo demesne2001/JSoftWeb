@@ -1680,13 +1680,13 @@ button.geex-btn.geex-btn__customizer-close:hover {
 
 .syncdata {
   position: fixed;
-  bottom: -1.6%;
+  bottom: -14.5px;
   /* border: 1px solid #0065ad; */
   padding: 1%;
   /* font-weight:; */
   background-color: #094876;
   color: white;
-  width: 100%;
+  width: 99%;
   left: 0;
   text-align: center;
 }
@@ -2142,6 +2142,315 @@ button.btn.btn-outline-success {
   margin-left: -125px;
 }
 
-.StocktoSalesmainChartDrop {
+th {
+  cursor: pointer;
+}
 
+th i {
+  float: right;
+}
+
+.logout {
+  position: fixed !important;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  text-align-last: center;
+  margin-bottom: -3%;
+  background-color: #dc3545;
+  color: white;
+  height: 5%;
+}
+
+.logoutbutton {
+  position: relative;
+  width: 100%;
+  border-radius: 0;
+  left: -3%;
+  bottom: -14px;
+}
+
+.logouttext {
+  color: white;
+}
+
+.louticon {
+  color: white;
+}
+
+.logoutcontainer {
+  position: absolute !important;
+  width: 100%;
+  bottom: -10%;
+}
+
+
+
+.NavbarFooter {
+  width: 87%;
+  position: fixed;
+  bottom: 36px;
+}
+
+.menu-toggle {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  cursor: not-allowed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-toggle::before {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 4px;
+  background: #000;
+  box-shadow: 0 8px 0 #000, 0 -8px 0 #000;
+}
+
+/* profile menu */
+
+.profile {
+  width: 77%;
+  right: -17%;
+  position: relative;
+  display: flex;
+  /* justify-content: flex-end; */
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  /* text-align: end; */
+  margin-top: -13%;
+}
+
+.profile h3 {
+  width: 132%;
+  /* text-align: end; */
+  line-height: 1;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.profile p {
+  width: 132%;
+  line-height: 1;
+  font-size: 14px;
+  opacity: 0.6;
+  font-weight: 600;
+}
+
+/* menu (the right one) */
+
+.menu-bar__text .menu {
+  position: absolute;
+  top: calc(100% + -82px);
+  right: -220px;
+  width: 200px;
+  min-height: 100px;
+  background: #fff;
+  border: 1px solid #e3e4fe;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateY(-10px);
+  visibility: hidden;
+  transition: 300ms;
+}
+
+.menu-bar__text .menu::before {
+  content: "";
+  position: absolute;
+  top: 66px;
+  right: 187px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  transform: rotate(45deg);
+  z-index: -1;
+}
+
+.menu.active {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
+}
+
+/* menu links */
+
+.menu-bar__text .menu ul {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  background: #fff;
+}
+
+.menu-bar__text .menu ul li {
+  list-style: none;
+}
+
+.menu-bar__text .menu ul li:hover {
+  background: #eee;
+}
+
+.menu-bar__text .menu ul li a {
+  justify-content: normal;
+  text-decoration: none;
+  color: #000;
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  gap: 6px;
+}
+
+.menu-bar__text .menu ul li a i {
+  font-size: 1.2em;
+}
+
+@media only screen and (min-width: 0px) and (max-width: 1278px) {
+  .menu-bar__text .menu {
+    position: absolute;
+    top: calc(100% + -153px);
+    right: -3px;
+    width: 200px;
+    min-height: 100px;
+    background: #fff;
+    border: 1px solid #e3e4fe;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+    opacity: 0;
+    transform: translateY(-10px);
+    visibility: hidden;
+    transition: 300ms;
+  }
+
+  .menu-bar__text .menu::before {
+    content: '';
+    position: absolute;
+    top: 87px;
+    right: 169px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    transform: rotate(45deg);
+    z-index: -1;
+  }
+
+  .menu-bar__text .menu a {
+    margin-left: 6px;
+  }
+
+  .profile {
+    width: 77%;
+    right: 6%;
+    position: relative;
+    display: flex;
+    /* justify-content: flex-end; */
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    /* text-align: end; */
+    margin-top: -13%;
+  }
+
+  .navbari {
+    width: 25px !important;
+    position: relative !important;
+    margin-top: -45px !important;
+    right: -128px !important;
+  }
+}
+
+.navbari {
+  width: 25px;
+    position: relative !important;
+    margin-top: -44px;
+    right: -176px;
+}
+
+
+
+
+
+.driver-popover.driverjs-theme {
+  background-color: #e3eef7;
+  color: #000;
+}
+
+.driver-popover.driverjs-theme .driver-popover-title {
+  font-size: 20px;
+}
+
+.driver-popover.driverjs-theme .driver-popover-title,
+.driver-popover.driverjs-theme .driver-popover-description,
+.driver-popover.driverjs-theme .driver-popover-progress-text {
+  color: #094876;
+}
+
+.driver-popover-progress-text {
+  margin-right: 12%;
+}
+
+
+.driver-popover.driverjs-theme button {
+  flex: 1;
+  text-align: center;
+  background-color: #094876;
+  color: #ffffff;
+  /* border: 2px solid #000; */
+  text-shadow: none;
+  font-size: 14px;
+  padding: 5px 8px;
+  /* width: 50px; */
+  border-radius: 6px;
+}
+
+/* .driver-popover.driverjs-theme button:hover {
+  background-color: #000;
+  color: #ffffff;
+} */
+
+.driver-popover.driverjs-theme .driver-popover-navigation-btns {
+  justify-content: space-between;
+  gap: 3px;
+}
+
+.driver-popover.driverjs-theme .driver-popover-close-btn {
+  color: white;
+  font-size: 30px;
+  background-color: #dc3545 !important;
+  background: none;
+  margin: 2%;
+  width: 23px;
+  height: 23px;
+}
+
+.driver-popover.driverjs-theme .driver-popover-close-btn:hover {
+  color: white;
+}
+
+.driver-popover.driverjs-theme .driver-popover-arrow-side-left.driver-popover-arrow {
+  border-left-color: #e3eef7;
+}
+
+.driver-popover.driverjs-theme .driver-popover-arrow-side-right.driver-popover-arrow {
+  border-right-color: #e3eef7;
+}
+
+.driver-popover.driverjs-theme .driver-popover-arrow-side-top.driver-popover-arrow {
+  border-top-color: #e3eef7;
+}
+
+.driver-popover.driverjs-theme .driver-popover-arrow-side-bottom.driver-popover-arrow {
+  border-bottom-color: #e3eef7;
+}
+
+
+.driver-popover-description {
+  margin-bottom: 0;
+  font: 18px / normal sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  zoom: 1;
 }

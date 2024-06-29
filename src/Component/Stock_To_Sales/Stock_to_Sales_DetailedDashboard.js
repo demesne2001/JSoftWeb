@@ -55,11 +55,11 @@ export default function Stock_to_Sales_DetailedDashboard() {
 
     const SliderData = [
 
-        { name: 'Period', iconClass: 'fa-solid fa-clock', group: '', column: '', columnID: '', componentName: 'Period Wise', filter_key1: '', filter_key2: '', ChartMode:'1', FromDate: mainChartProps.FromDate, ToDate : mainChartProps.ToDate },
-        { name: 'Branch', iconClass: 'fas fa-chart-pie', group: '', column: '', columnID: '', componentName: 'Branch Wise', filter_key1: '', filter_key2: '', ChartMode:'2', FromDate: mainChartProps.FromDate, ToDate : mainChartProps.ToDate  },
-        { name: 'Product', iconClass: 'fas fa-boxes', group: '', column: '', columnID: '', componentName: 'Product Wise', filter_key1: '', filter_key2: '', ChartMode:'3', FromDate: mainChartProps.FromDate, ToDate : mainChartProps.ToDate  },
-        { name: 'Item', iconClass: 'fas fa-project-diagram', group: '', column: '', columnID: '', componentName: 'Item Wise', filter_key1: '', filter_key2: '', ChartMode:'4', FromDate: mainChartProps.FromDate, ToDate : mainChartProps.ToDate  },
-        { name: 'SubItem', iconClass: 'fas fa-th-list', group: '', column: '', columnID: '', componentName: 'Sub-Item Wise', filter_key1: '', filter_key2: '', ChartMode:'5', FromDate: mainChartProps.FromDate, ToDate : mainChartProps.ToDate  }
+        { name: 'Period', iconClass: 'fa-solid fa-clock', group: '', column: '', columnID: '', componentName: 'Period Wise', filter_key1: '', filter_key2: '', ChartMode: '1', FromDate: mainChartProps.FromDate, ToDate: mainChartProps.ToDate },
+        { name: 'Branch', iconClass: 'fas fa-chart-pie', group: '', column: '', columnID: '', componentName: 'Branch Wise', filter_key1: '', filter_key2: '', ChartMode: '2', FromDate: mainChartProps.FromDate, ToDate: mainChartProps.ToDate },
+        { name: 'Product', iconClass: 'fas fa-boxes', group: '', column: '', columnID: '', componentName: 'Product Wise', filter_key1: '', filter_key2: '', ChartMode: '3', FromDate: mainChartProps.FromDate, ToDate: mainChartProps.ToDate },
+        { name: 'Item', iconClass: 'fas fa-project-diagram', group: '', column: '', columnID: '', componentName: 'Item Wise', filter_key1: '', filter_key2: '', ChartMode: '4', FromDate: mainChartProps.FromDate, ToDate: mainChartProps.ToDate },
+        { name: 'SubItem', iconClass: 'fas fa-th-list', group: '', column: '', columnID: '', componentName: 'Sub-Item Wise', filter_key1: '', filter_key2: '', ChartMode: '5', FromDate: mainChartProps.FromDate, ToDate: mainChartProps.ToDate }
     ]
 
 
@@ -75,12 +75,12 @@ export default function Stock_to_Sales_DetailedDashboard() {
     }, [])
 
     useEffect(() => {
-        console.log(mainChartProps, "mainchart");
+
         if (JSON.stringify(mainChartProps) !== JSON.stringify({}) && mainChartProps.componentName !== null) {
             if (mainChartProps.componentName === 'Product Wise') {
-                setDefaultChartProps({ name: 'Branch', iconClass: 'fas fa-chart-pie', group: '', column: '', columnID: '', componentName: 'Branch Wise', filter_key1: '', filter_key2: '', ChartMode:'2', FromDate: mainChartProps.FromDate, ToDate : mainChartProps.ToDate  })
+                setDefaultChartProps({ name: 'Branch', iconClass: 'fas fa-chart-pie', group: '', column: '', columnID: '', componentName: 'Branch Wise', filter_key1: '', filter_key2: '', ChartMode: '2', FromDate: mainChartProps.FromDate, ToDate: mainChartProps.ToDate })
             } else {
-                setDefaultChartProps( { name: 'Product', iconClass: 'fas fa-boxes', group: '', column: '', columnID: '', componentName: 'Product Wise', filter_key1: '', filter_key2: '', ChartMode:'3', FromDate: mainChartProps.FromDate, ToDate : mainChartProps.ToDate  })
+                setDefaultChartProps({ name: 'Product', iconClass: 'fas fa-boxes', group: '', column: '', columnID: '', componentName: 'Product Wise', filter_key1: '', filter_key2: '', ChartMode: '3', FromDate: mainChartProps.FromDate, ToDate: mainChartProps.ToDate })
             }
         } else {
             getUrlData()
@@ -145,11 +145,11 @@ export default function Stock_to_Sales_DetailedDashboard() {
             <Navbar />
             <div id="crancy-dark-light">
                 <div class="crancy-body-area">
-                    <Header_detailed screen={3} Date={{FromDate: mainChartProps.FromDate, ToDate: mainChartProps.ToDate }} />
+                    <Header_detailed screen={3} Date={{ FromDate: mainChartProps.FromDate, ToDate: mainChartProps.ToDate }} />
                     <section class="crancy-adashboard dashboard-graphdetail">
                         <div class="container">
                             <div class="row">
-                            {JSON.stringify(mainChartProps) !== JSON.stringify({})?<StockToSalesMainChart state={mainChartProps} />:null}
+                                {JSON.stringify(mainChartProps) !== JSON.stringify({}) ? <StockToSalesMainChart state={mainChartProps} /> : null}
                                 <div class="col-xl-6 col-lg-6 col-md-12 col-12">
                                     <div class="top-slider">
                                         <div class="row">
@@ -192,7 +192,7 @@ export default function Stock_to_Sales_DetailedDashboard() {
                                             </div>
                                         </div>
                                     </div>
-                                   {JSON.stringify(defaulChartprops) !== JSON.stringify({})? <StockToSalesDefaultChart state={defaulChartprops} />:null}
+                                    {JSON.stringify(defaulChartprops) !== JSON.stringify({}) ? <StockToSalesDefaultChart state={defaulChartprops} /> : null}
                                 </div>
                             </div>
                         </div>

@@ -129,13 +129,13 @@ export default function SheduleClientDetailsSecondScreen(xAxis, yAxis, contextDa
   if (chartid !== 14) {
     option = {
       themeId: 11,
-      chartId: 'inside-Baryuids',
+      chartId: 'inside-Baryuids' + chartid,
       charttype: 'inside-Bar',
       height: '400%',
       width: '100%',
       legend: ['TargetParty', 'VisitedParty', 'SeenParty', 'SoldParty','Prc'],
       color: ['#46a5dd','#2c4b6a', '#c3d5ff','#1563e6','#c8d6f7'],
-      widthlst: [35, 25, 15, 10],
+      widthlst: [35, 20,15,8],
       Xaxis: xAxis,
       Yaxis: yAxis,
       idkey: 'TravellingTeamID',
@@ -146,7 +146,8 @@ export default function SheduleClientDetailsSecondScreen(xAxis, yAxis, contextDa
       minval: findMinMax()[1],
       barnum: 4,
       divname: 'crancy-progress-card card-contain-graph',
-      tooltipid: 4
+      tooltipid: 4,
+      filtervalueindex:0
     }
 
   }

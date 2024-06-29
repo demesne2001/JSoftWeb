@@ -92,7 +92,7 @@ export default function Dashboard() {
                                 <div className="crancy-dsinner">
                                     <div id='rootElementId'  onScroll={handleOnscroll}>
 
-                                        <div className="row">
+                                        <div className="row" id='cardrow'>
 
                                             <Piegraph1 />
                                             <SalesEfficiency />

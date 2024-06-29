@@ -52,6 +52,11 @@ export default function RegionWise() {
 				fontSize: 20,
 				fontWeight: 'bold'
 			}
+		},
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true  
 		}
 	}
 	let optionPolar = {
@@ -62,16 +67,26 @@ export default function RegionWise() {
 		chartId: 'RegionWise',
 		propdata: data,
 		radius: [10, 110],
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true  
+		}
 	}
 	let gradientbar = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		height: '400px',
 		width: '100%',
 		labelcolor: '#000',
-		chartId: 'RegionWisegradient',
+		chartId: 'RegionWise',
 		charttype: 'gradient-bar',
 		Xaxis: name,
-		Yaxis: weight
+		Yaxis: weight,
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true  
+		}
 	}
 	let radialdata = {
 		themeId: localStorage.getItem("ThemeIndex"),
@@ -81,6 +96,11 @@ export default function RegionWise() {
 		chartId: 'RegionWise',
 		radiusAxis: name,
 		seriesdata: weight,
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true  
+		}
 	}
 	let optionpie = {
 		themeId: localStorage.getItem("ThemeIndex"),
@@ -88,20 +108,25 @@ export default function RegionWise() {
 		height: '100%',
 		width: '100%',
 		propdata: data,
-		chartId: 'PieChartRegionWise',
+		chartId: 'RegionWise',
 		label: {
 			position: 'inside',
 			formatter: '{d}%',
 			color: 'white',
 			fontWeight: 'bold',
 		},
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true  
+		}
 	}
 	let optradialbar = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		charttype: 'semi-donut',
 		height: '100%',
 		width: '100%',
-		chartId: 'RadialBarchartRegionWise',
+		chartId: 'RegionWise',
 		propdata: data,
 		position: 'center',
 		fontsize: 20,
@@ -115,6 +140,11 @@ export default function RegionWise() {
 				fontSize: 20,
 				fontWeight: 'bold'
 			}
+		},
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true  
 		}
 	}
 	let roundedBarHorizontal = {
@@ -127,14 +157,13 @@ export default function RegionWise() {
 		color: ['#0073b0', '#caf77d', '#8bd9e8', '#c4e8f0'],
 		Yaxis: weight,
 		divname: 'crancy-progress-card card-contain-graph',
-		prclst:prc
+		prclst:prc,
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true  
+		}
 	}
-	const series_lolipop = [{
-		name: 'Weight',
-		data: weight
-	}]
-	const series_polar = weight
-
 	const navigate = useNavigate()
 
 	function handleclick(e) {
@@ -175,10 +204,10 @@ export default function RegionWise() {
 					for (let index = 0; index < res.data.lstResult.length; index++) {
 						if (res.data.lstResult[index]['RegionName'] === null) {
 							name.push("null")
-							data.push({ value: res.data.lstResult[index]['NetWeight'], name: 'null' })
+							data.push({ value: res.data.lstResult[index][inputdata.column], name: 'null' })
 						} else {
 							name.push(res.data.lstResult[index]['RegionName'])
-							data.push({ value: res.data.lstResult[index]['NetWeight'], name: res.data.lstResult[index]['RegionName'] })
+							data.push({ value: res.data.lstResult[index][inputdata.column], name: res.data.lstResult[index]['RegionName'] })
 						}
 						tempprc.push(res.data.lstResult[index]['Prc']);
 						weight.push(res.data.lstResult[index][inputdata['column']])
@@ -305,10 +334,10 @@ export default function RegionWise() {
 				for (let index = 0; index < res.data.lstResult.length; index++) {
 					if (res.data.lstResult[index]['RegionName'] === null) {
 						name.push("null")
-						data.push({ value: res.data.lstResult[index]['NetWeight'], name: 'null' })
+						data.push({ value: res.data.lstResult[index][inputdata['column']], name: 'null' })
 					} else {
 						name.push(res.data.lstResult[index]['RegionName'])
-						data.push({ value: res.data.lstResult[index]['NetWeight'], name: res.data.lstResult[index]['RegionName'] })
+						data.push({ value: res.data.lstResult[index][inputdata['column']], name: res.data.lstResult[index]['RegionName'] })
 					}
 					tempprc.push(res.data.lstResult[index]['Prc']);
 					weight.push(res.data.lstResult[index][inputdata['column']])

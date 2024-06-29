@@ -34,23 +34,33 @@ export default function SalesManWise() {
     chartId: 'SalesManWise',
     Xaxis: name,
     Yaxis: weight,
-    prclst:prc
+    prclst:prc,
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
   let radialdata = {
     themeId: localStorage.getItem("ThemeIndex"),
     charttype: 'polar-radialbar',
     height: '100%',
     width: '100%',
-    chartId: 'SalesManWise Wise',
+    chartId: 'SalesManWise',
     radiusAxis: name,
     seriesdata: weight,
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
   let optiondonut = {
     themeId: localStorage.getItem("ThemeIndex"),
     charttype: 'donut',
     height: '100%',
     width: '100%',
-    chartId: 'SalesManWise Wise',
+    chartId: 'SalesManWise',
     propdata: data,
     radius: [10, 150],
     label: {
@@ -63,7 +73,12 @@ export default function SalesManWise() {
         fontSize: 20,
         fontWeight: 'bold'
       }
-    }
+    },
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
 
   }
 
@@ -73,20 +88,25 @@ export default function SalesManWise() {
     height: '100%',
     width: '100%',
     propdata: data,
-    chartId: 'PieChartSalesManWise',
+    chartId: 'SalesManWise',
     label: {
       position: 'inside',
       formatter: '{d}%',
       color: 'white',
       fontWeight: 'bold',
     },
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
   let optradialbar = {
     themeId: localStorage.getItem("ThemeIndex"),
     charttype: 'semi-donut',
     height: '100%',
     width: '100%',
-    chartId: 'RadialBarchartSalesManWise',
+    chartId: 'SalesManWise',
     propdata: data,
     position: 'center',
     fontsize: 20,
@@ -100,16 +120,26 @@ export default function SalesManWise() {
         fontSize: 20,
         fontWeight: 'bold'
       }
-    }
+    },
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }      
   let optionPolar = {
     themeId: localStorage.getItem("ThemeIndex"),
     charttype: 'pie',
     height: '100%',
     width: '100%',
-    chartId: 'SalesManWise 12',
+    chartId: 'SalesManWise',
     propdata: data,
     radius: [10, 110],
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
   useEffect(() => {
     fetchOption()
@@ -158,7 +188,7 @@ export default function SalesManWise() {
           setName(name)
           setweight(weight)
           setdataLoader(false)
-          console.log(data, "asdsd");
+
           if (weight.length !== 0) {
             setLoader(false)
           } else {

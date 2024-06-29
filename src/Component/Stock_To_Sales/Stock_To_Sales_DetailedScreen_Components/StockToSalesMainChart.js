@@ -21,6 +21,8 @@ export default function StockToSalesMainChart(props) {
     const [page, setPage] = useState(0);
     const [data, setdata] = useState([]);
     const [flagCalender, setflagCalender] = useState(false)
+    const [datashow, setDatashow] = useState(11);
+
     let updatedstate = {}
     let option = {};
     const [flag, setflag] = useState('bar');
@@ -31,9 +33,11 @@ export default function StockToSalesMainChart(props) {
     let optionHorizontalBar = {}
     let optionLineBar = {}
     let updatecontext = {}
+    let percentage;
+    let percentageVertical;
 
     useEffect(() => {
-        console.log("awsdvbaygsdv", props.state.filterdata);
+
         if (props.state.filterdata !== null) {
             contextData.SetDetailState(props.state.filterdata)
         }
@@ -42,13 +46,13 @@ export default function StockToSalesMainChart(props) {
         if (props.state.ChartMode !== null) {
             getChartData()
         }
-        console.log("api calleddd", props.state.ChartMode);
+
     }, [props])
     useEffect(() => {
         if (props.state.ChartMode !== null) {
             getChartData()
         }
-        console.log("api calleddd11", inputdata);
+
     }, [inputdata])
 
     useEffect(() => {
@@ -56,14 +60,17 @@ export default function StockToSalesMainChart(props) {
             getSortChartData()
         }
     }, [flagSort])
+    useEffect(() => {
+        setDatashowOnDivWidth()
+
+    }, [])
 
 
 
     function getChartData() {
-        console.log(props);
+
         inputdata = { ...inputdata, 'Mode': props.state.ChartMode, 'FromDate': props.state.FromDate, 'ToDate': props.state.ToDate }
-        console.log(inputdata, "brfotr Api"
-        );
+
         post(inputdata, API.GetStockToSalesChart, {}, "post").then((res) => {
             if (res.data !== undefined) {
                 var tempYaxis = [];
@@ -83,7 +90,7 @@ export default function StockToSalesMainChart(props) {
                     idtemp.push(res.data.lstResult[j][StockToSalesChartObject[props.state.ChartMode]['id']])
                 }
                 setxAxis(tempXaxis);
-                console.log(idtemp, "sasa");
+
                 setid(idtemp);
                 setdataLoader(false)
                 if (tempXaxis.length !== 0) {
@@ -119,8 +126,40 @@ export default function StockToSalesMainChart(props) {
         }
     }
 
+    function setDatashowOnDivWidth() {
+        setTimeout(() => {
+            if (document.getElementsByClassName('detailstocktosales')[0].clientWidth < 902 && document.getElementsByClassName('detailstocktosales')[0].clientWidth > 450) {
+                setDatashow(5)
+            } else if (document.getElementsByClassName('detailstocktosales')[0].clientWidth <= 450) {
+                setDatashow(3)
+            } else {
+                setDatashow(11)
+            }
+        }, 1000);
+    }
+
+    function divideHorizontalData(len_of_data, per) {
+        if (len_of_data <= 5) {
+            console.log(parseInt(per), "answer");
+            percentage = parseInt(per)
+        } else {
+            divideHorizontalData(parseInt(len_of_data / 2), parseInt(per / 2))
+        }
+    }
+
+    function divideVerticalData(len_of_data, per) {
+        if (len_of_data <= datashow) {
+            console.log(parseInt(per), "answer");
+            percentageVertical = parseInt(per)
+        } else {
+            divideVerticalData(parseInt(len_of_data / 2), parseInt(per / 2))
+        }
+    }
+
+    divideHorizontalData(xAxis.length, 100)
+    divideVerticalData(xAxis.length, 100)
     if (document.getElementsByClassName('detailstocktosales')[0] !== undefined && xAxis.length > 0 && yAxis.length > 0) {
-        console.log(xAxis, inputdata, "qawe");
+
         let tempYAxis = yAxis;
         let templegend = [];
         let sliderbol
@@ -133,19 +172,19 @@ export default function StockToSalesMainChart(props) {
             if (tempYAxis.length > 3) {
                 tempYAxis.splice(2, 1);
             }
-            console.log("asdgjhagsd", tempYAxis);
+
             templegend = ['AvgStock', 'Sales-NetWeight', 'AvgStockCycleNtWt']
         } else {
             if (tempYAxis.length > 3) {
                 tempYAxis.splice(1, 1);
             }
-            console.log("asdgjhagsd", tempYAxis);
+
             templegend = ['AvgStock', 'Sales-Pieces', 'AvgStockCycleNtWt']
         }
         if (props.state.ChartMode === 1) {
             optionMultiBar = {
                 themeId: 11,
-                chartId: 'inside-Baryudsd' + props.state.ChartMode,
+                chartId: 'StockToSales_Main' + props.state.ChartMode,
                 charttype: 'inside-Bar',
                 height: '670%',
                 width: '100%',
@@ -164,13 +203,14 @@ export default function StockToSalesMainChart(props) {
                 tooltipid: 0,
                 divname: 'detailstocktosales',
                 sliderflag: sliderbol,
-                datazoomlst: [0, 50, 0, 100],
+                datazoomlst: [0, percentageVertical, 0, 100],
+                filtervalueindex: 2
             }
 
         } else {
             optionMultiBar = {
                 themeId: 11,
-                chartId: 'inside-Baryuiaw' + props.ChartMode,
+                chartId: 'StockToSales_Main' + props.ChartMode,
                 charttype: 'inside-Bar',
                 height: '700%',
                 width: '100%',
@@ -189,7 +229,8 @@ export default function StockToSalesMainChart(props) {
                 tooltipid: 0,
                 divname: 'detailstocktosales',
                 sliderflag: sliderbol,
-                datazoomlst: [0, 50, 0, 100],
+                datazoomlst: [0, percentageVertical, 0, 100],
+                filtervalueindex: 2
             }
 
         }
@@ -198,7 +239,7 @@ export default function StockToSalesMainChart(props) {
             charttype: 'round-horizontal-bar',
             height: '100%',
             width: '100%',
-            chartId: 'MinimumStocks2' + props.state.ChartMode,
+            chartId: 'StockToSales_Main' + props.state.ChartMode,
             Xaxis: xAxis,
             color: ['#0073b0', '#caf77d', '#8bd9e8', '#c4e8f0'],
             Yaxis: tempYAxis[2],
@@ -206,9 +247,9 @@ export default function StockToSalesMainChart(props) {
             idlst: id,
             divname: 'detailstocktosales',
             sliderflag: sliderbol,
-            datazoomlst: [0, 100, 0, 50],
-            tooltip:{
-                formatter:'{b}<br>AvgStockCycleNtWt - {c}'
+            datazoomlst: [0, 100, 0, percentage],
+            tooltip: {
+                formatter: '{b}<br>AvgStockCycleNtWt - {c}'
             }
         }
         optionBar = {
@@ -216,30 +257,30 @@ export default function StockToSalesMainChart(props) {
             charttype: 'roundbar',
             height: document.getElementsByClassName('detailstocktosales')[0].clientHeight - 30,
             width: document.getElementsByClassName('detailstocktosales')[0].clientWidth - 30,
-            chartId: 'MinimumStockwiseBar2' + props.state.ChartMode,
+            chartId: 'StockToSales_Main' + props.state.ChartMode,
             Xaxis: xAxis,
             Yaxis: tempYAxis[2],
             idkey: props.state.filterkey,
             idlst: id,
             divname: 'detailstocktosales',
             sliderflag: sliderbol,
-            datazoomlst: [0, 50, 0, 100],
-            tooltip:{
-                formatter:'{b}<br>AvgStockCycleNtWt - {c}'
+            datazoomlst: [0, percentageVertical, 0, 100],
+            tooltip: {
+                formatter: '{b}<br>AvgStockCycleNtWt - {c}'
             }
         }
         optionLineBar = {
             themeId: 11,
             height: '600%',
             width: '100%',
-            chartId: 'Minimumsrtocksline2' + props.state.ChartMode,
+            chartId: 'StockToSales_Main' + props.state.ChartMode,
             charttype: 'cartesian-point',
             Xaxis: xAxis,
             Yaxis: tempYAxis[2],
             idkey: props.state.filterkey,
             idlst: id,
         }
-        console.log("options", optionBar);
+
 
     }
     if (flag === 'MultiBar') {
@@ -252,7 +293,10 @@ export default function StockToSalesMainChart(props) {
         updatecontext = (<AlphaDashChart obj={JSON.parse(JSON.stringify(optionBar))} state={contextData.detailsecondstate} />).props.state;
     }
     function DivOnClick() {
-        console.log(updatecontext, "asdhtutdf");
+        if (updatecontext.filtername !== undefined && updatecontext.filtervalue !== undefined) {
+            contextData.setfiltervalue(updatecontext.filtervalue)
+            contextData.setfiltername(updatecontext.filtername)
+        }
         contextData.SetDetailsecondState({ ...contextData.detailsecondstate, [props.state.filterkey]: updatecontext[props.state.filterkey] })
     }
 
@@ -298,7 +342,7 @@ export default function StockToSalesMainChart(props) {
 
     function getSortChartData() {
         inputdata = { ...inputdata, 'Mode': props.state.ChartMode, "sort": flagSort }
-        console.log(inputdata, "wewqeqwqeqwewqe");
+
         post(inputdata, API.GetStockToSalesChart, {}, "post").then((res) => {
             if (res.data !== undefined) {
                 var tempYaxis = [];
@@ -345,45 +389,45 @@ export default function StockToSalesMainChart(props) {
                 <div class="title-top-graphdetail" >
 
 
-                        <h5>
-                            {props.state !== null ? props.state.componentName : null}
-                            <div className='d-flex MinimumstockIcons'>
-                                <div className='dropbtngraph'>
-                                    <i className="fa-solid fa-arrow-down-short-wide sorticon minimumstocktosaleschartoption" onClick={handleSorting} />
-                                </div>
-                                <div className='dropbtngraph'>
-                                    <i class="fa-solid fa-ellipsis-vertical" id='icon_drop' onClick={handleonchangeCurrency} />
-                                </div>
+                    <h5>
+                        {props.state !== null ? props.state.componentName : null}
+                        <div className='d-flex MinimumstockIcons'>
+                            <div className='dropbtngraph'>
+                                <i className="fa-solid fa-arrow-down-short-wide sorticon minimumstocktosaleschartoption" onClick={handleSorting} />
                             </div>
-                        </h5>
-
-        
+                            <div className='dropbtngraph'>
+                                <i class="fa-solid fa-ellipsis-vertical" id='icon_drop' onClick={handleonchangeCurrency} />
+                            </div>
                         </div>
+                    </h5>
 
 
-                    <div id={"sortingmenu" + props.id} className="dropdown-contenticon-second-screen" onClick={handleclickSort}>
-                        {flagSort === 'AvgStockCycleNtWt' ? <><a id='AvgStockCycleNtWt'>Sort by AvgStockCycleNtWt ASC&nbsp;<i class="fa-solid fa-check"></i></a><hr className='custom-hr' /></> : <><a id='AvgStockCycleNtWt'>Sort by AvgStockCycleNtWt ASC&nbsp;</a><hr className='custom-hr' /></>}
-                        {flagSort === 'AvgStockCycleNtWt Desc' ? <><a id='AvgStockCycleNtWt Desc'>Sort by AvgStockCycleNtWt DESC&nbsp;<i class="fa-solid fa-check"></i></a><hr className='custom-hr' /></> : <><a id='AvgStockCycleNtWt Desc'>Sort by AvgStockCycleNtWt DESC&nbsp;</a><hr className='custom-hr' /></>}
-                        {inputdata.Unit === 'P' ?
-                            <>
-                                {flagSort === 'Spcs' ? <><a id='Spcs'>Sort by Sales-Peices ASC&nbsp; <i class="fa-solid fa-check"></i></a><hr className='custom-hr' /> </> : <><a id='Spcs'>Sort by Sales-Peices ASC&nbsp;</a><hr className='custom-hr' /> </>}
-                                {flagSort === 'Spcs desc' ? <><a id='Spcs desc'>Sort by Sales-Peices DESC&nbsp; <i class="fa-solid fa-check"></i></a><hr className='custom-hr' /> </> : <><a id='Spcs desc'>Sort by Sales-Peices DESC&nbsp;</a><hr className='custom-hr' /> </>}
-                            </> :
-                            <>
-                                {flagSort === 'SNtWt' ? <><a id='SNtWt'>Sort by Sales-Netweight ASC&nbsp; <i class="fa-solid fa-check"></i></a><hr className='custom-hr' /> </> : <><a id='SNtWt'>Sort by Sales-Netweight ASC&nbsp;</a><hr className='custom-hr' /> </>}
-                                {flagSort === 'SNtWt desc' ? <><a id='SNtWt desc'>Sort by Sales-Netweight DESC&nbsp; <i class="fa-solid fa-check"></i></a><hr className='custom-hr' /> </> : <><a id='SNtWt desc'>Sort by Sales-Netweight DESC&nbsp;</a><hr className='custom-hr' /> </>}
-                            </>
-                        }
+                </div>
 
+
+                <div id={"sortingmenu" + props.id} className="dropdown-contenticon-second-screen" onClick={handleclickSort}>
+                    {flagSort === 'AvgStockCycleNtWt' ? <><a id='AvgStockCycleNtWt'>Sort by AvgStockCycleNtWt ASC&nbsp;<i class="fa-solid fa-check"></i></a><hr className='custom-hr' /></> : <><a id='AvgStockCycleNtWt'>Sort by AvgStockCycleNtWt ASC&nbsp;</a><hr className='custom-hr' /></>}
+                    {flagSort === 'AvgStockCycleNtWt Desc' ? <><a id='AvgStockCycleNtWt Desc'>Sort by AvgStockCycleNtWt DESC&nbsp;<i class="fa-solid fa-check"></i></a><hr className='custom-hr' /></> : <><a id='AvgStockCycleNtWt Desc'>Sort by AvgStockCycleNtWt DESC&nbsp;</a><hr className='custom-hr' /></>}
+                    {inputdata.Unit === 'P' ?
+                        <>
+                            {flagSort === 'Spcs' ? <><a id='Spcs'>Sort by Sales-Peices ASC&nbsp; <i class="fa-solid fa-check"></i></a><hr className='custom-hr' /> </> : <><a id='Spcs'>Sort by Sales-Peices ASC&nbsp;</a><hr className='custom-hr' /> </>}
+                            {flagSort === 'Spcs desc' ? <><a id='Spcs desc'>Sort by Sales-Peices DESC&nbsp; <i class="fa-solid fa-check"></i></a><hr className='custom-hr' /> </> : <><a id='Spcs desc'>Sort by Sales-Peices DESC&nbsp;</a><hr className='custom-hr' /> </>}
+                        </> :
+                        <>
+                            {flagSort === 'SNtWt' ? <><a id='SNtWt'>Sort by Sales-Netweight ASC&nbsp; <i class="fa-solid fa-check"></i></a><hr className='custom-hr' /> </> : <><a id='SNtWt'>Sort by Sales-Netweight ASC&nbsp;</a><hr className='custom-hr' /> </>}
+                            {flagSort === 'SNtWt desc' ? <><a id='SNtWt desc'>Sort by Sales-Netweight DESC&nbsp; <i class="fa-solid fa-check"></i></a><hr className='custom-hr' /> </> : <><a id='SNtWt desc'>Sort by Sales-Netweight DESC&nbsp;</a><hr className='custom-hr' /> </>}
+                        </>
+                    }
+
+                </div>
+                <div className='btnicons'>
+                    <div id={"myDropdownicon" + props.id} className="dropdown-contenticon-second-screen" onClick={handleclick}>
+                        {flag === 'bar' ? <><a id='bar'>Bar&nbsp;<i class="fa-solid fa-check"></i></a><hr className='custom-hr' /></> : <><a id='bar' >Bar</a><hr className='custom-hr' /></>}
+                        {flag === 'HorizontalBar' ? <><a id='HorizontalBar'>HorizontalBar&nbsp;<i class="fa-solid fa-check"></i></a><hr className='custom-hr' /></> : <><a id='HorizontalBar' >HorizontalBar</a><hr className='custom-hr' /></>}
+                        {/* {flag === 'Line' ? <><a id='Line'>Line&nbsp;<i class="fa-solid fa-check"></i></a><hr className='custom-hr' /></> : <><a id='Line' >Line</a><hr className='custom-hr' /></>} */}
+                        {flag === 'MultiBar' ? <><a id='MultiBar'>MultiBar&nbsp;<i class="fa-solid fa-check"></i></a><hr className='custom-hr' /></> : <><a id='MultiBar' >MultiBar</a><hr className='custom-hr' /></>}
                     </div>
-                    <div className='btnicons'>
-                        <div id={"myDropdownicon" + props.id} className="dropdown-contenticon-second-screen" onClick={handleclick}>
-                            {flag === 'bar' ? <><a id='bar'>Bar&nbsp;<i class="fa-solid fa-check"></i></a><hr className='custom-hr' /></> : <><a id='bar' >Bar</a><hr className='custom-hr' /></>}
-                            {flag === 'HorizontalBar' ? <><a id='HorizontalBar'>HorizontalBar&nbsp;<i class="fa-solid fa-check"></i></a><hr className='custom-hr' /></> : <><a id='HorizontalBar' >HorizontalBar</a><hr className='custom-hr' /></>}
-                            {/* {flag === 'Line' ? <><a id='Line'>Line&nbsp;<i class="fa-solid fa-check"></i></a><hr className='custom-hr' /></> : <><a id='Line' >Line</a><hr className='custom-hr' /></>} */}
-                            {flag === 'MultiBar' ? <><a id='MultiBar'>MultiBar&nbsp;<i class="fa-solid fa-check"></i></a><hr className='custom-hr' /></> : <><a id='MultiBar' >MultiBar</a><hr className='custom-hr' /></>}
-                        </div>
-                    </div>
+                </div>
 
 
 
@@ -402,7 +446,7 @@ export default function StockToSalesMainChart(props) {
                                                 <button className='chartoptionButton' onClick={() => { handleMonthOptionClick("Y") }}>Year Wise</button>
                                             </div>
                                             : null}
-                                        {console.log(StockToSalesOption(xAxis, yAxis, id, contextData)[1], "ssss")}
+
                                         {optionBar.Xaxis !== undefined ? optionBar.Xaxis.length > 0 ?
                                             <>
                                                 {flag === 'bar' ? <AlphaDashChart obj={JSON.parse(JSON.stringify(optionBar))} state={contextData.detailsecondstate} /> : null}

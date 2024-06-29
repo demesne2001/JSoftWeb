@@ -30,21 +30,31 @@ export default function CityWise() {
 		charttype: 'round-horizontal-bar',
 		height: '100%',
 		width: '100%',
-		chartId: 'City Wise bar',
+		chartId: 'CityWise',
 		Xaxis: name,
 		color: ['#0073b0', '#caf77d', '#8bd9e8', '#c4e8f0'],
 		Yaxis: weight,
 		divname: 'crancy-progress-card card-contain-graph',
-		prclst:prc
+		prclst: prc,
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc' ? '%' : ""}`,
+			confine: true
+		}
 	}
 	let radialdata = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		charttype: 'polar-radialbar',
 		height: '100%',
 		width: '100%',
-		chartId: 'Citywise',
+		chartId: 'CityWise',
 		radiusAxis: name,
 		seriesdata: weight,
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc' ? '%' : ""}`,
+			confine: true
+		}
 	}
 	let optionpie = {
 		themeId: localStorage.getItem("ThemeIndex"),
@@ -52,26 +62,35 @@ export default function CityWise() {
 		height: '100%',
 		width: '100%',
 		propdata: data,
-		chartId: 'CitywisePieChartBranchwise',
-
+		chartId: 'CityWise',
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc' ? '%' : ""}`,
+			confine: true
+		}
 	}
 	let optradialbar = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		charttype: 'semi-donut',
 		height: '100%',
 		width: '100%',
-		chartId: 'CitywiseRadialBarchart',
+		chartId: 'CityWise',
 		propdata: data,
-		label:  {
+		label: {
 			show: false,
 			position: 'center'
-		  },
-		  emphasis: {
+		},
+		emphasis: {
 			label: {
-			  show: true,
-			  fontSize: 20,
-			  fontWeight: 'bold'
+				show: true,
+				fontSize: 20,
+				fontWeight: 'bold'
 			}
+		},
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc' ? '%' : ""}`,
+			confine: true
 		}
 	}
 
@@ -201,7 +220,7 @@ export default function CityWise() {
 	});
 
 	function handleNavigation() {
-		navigate('/graph-detail', { state: { grouping: "c.cityname", columnName: "cityname", columnID: "cityname", componentName: "City Wise", filterKey: "strCity", chartId: 3, FromDate: inputdata.FromDate, ToDate : inputdata.ToDate }, replace: true })
+		navigate('/graph-detail', { state: { grouping: "c.cityname", columnName: "cityname", columnID: "cityname", componentName: "City Wise", filterKey: "strCity", chartId: 3, FromDate: inputdata.FromDate, ToDate: inputdata.ToDate }, replace: true })
 	}
 
 	async function fetchOption() {

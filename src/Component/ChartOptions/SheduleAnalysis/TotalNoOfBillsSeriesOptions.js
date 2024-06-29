@@ -8,7 +8,7 @@ export default function TotalNoOfBillsSeriesOptions(xAxis, Yaxis) {
         tempseries.push({ x: xAxis[i], y: Yaxis[0][i] });
       }
     }
-    console.log(tempseries,"asdsa");
+
     return tempseries
   }
   const options = {
@@ -41,7 +41,7 @@ export default function TotalNoOfBillsSeriesOptions(xAxis, Yaxis) {
       }
     }
   }
-  console.log(FormatedSeriesData() ,"qwertyuiop");
+
   const series = [{
     data: FormatedSeriesData() 
   }]

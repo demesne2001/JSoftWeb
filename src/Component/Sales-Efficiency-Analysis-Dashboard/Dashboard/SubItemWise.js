@@ -42,16 +42,21 @@ export default function SubItemWise() {
     charttype: 'pie',
     height: '100%',
     width: '100%',
-    chartId: 'subItemWise',
+    chartId: 'SubItemWise',
     propdata: data,
     radius: [10, 110],
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
   let optradialbar = {
     themeId: localStorage.getItem("ThemeIndex"),
     charttype: 'semi-donut',
     height: '100%',
     width: '100%',
-    chartId: 'subItemWise',
+    chartId: 'SubItemWise',
     propdata: data,
     position: 'center',
     fontsize: 20,
@@ -65,7 +70,12 @@ export default function SubItemWise() {
         fontSize: 20,
         fontWeight: 'bold'
       }
-    }
+    },
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
 
   let roundbar = {
@@ -73,20 +83,30 @@ export default function SubItemWise() {
     charttype: 'roundbar',
     height: '100%',
     width: '100%',
-    chartId: 'subItemWise',
+    chartId: 'SubItemWise',
     Xaxis: name,
     Yaxis: weight,
     divname: "crancy-progress-card card-contain-graph",
-    prclst:prc
+    prclst:prc,
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
   let radialdata = {
     themeId: localStorage.getItem("ThemeIndex"),
     charttype: 'polar-radialbar',
     height: '100%',
     width: '100%',
-    chartId: 'subItemWise',
+    chartId: 'SubItemWise',
     radiusAxis: name,
     seriesdata: weight,
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
   const series_polar = weight;
 
@@ -149,11 +169,11 @@ export default function SubItemWise() {
             js = { 'product': '', 'thisYearProfit': 0 }
             if (res.data.lstResult[index]['subItemName'] === null) {
               name.push("null")
-              tempdata.push({ value: res.data.lstResult[index]['NetWeight'], name: 'null' })
+              tempdata.push({ value: res.data.lstResult[index][inputdata['column']], name: 'null' })
 
             } else {
               name.push(res.data.lstResult[index]['subItemName'])
-              tempdata.push({ value: res.data.lstResult[index]['NetWeight'], name: res.data.lstResult[index]['subItemName'] })
+              tempdata.push({ value: res.data.lstResult[index][inputdata['column']], name: res.data.lstResult[index]['subItemName'] })
             }
             weight.push(res.data.lstResult[index][inputdata['column']])
 
@@ -298,11 +318,11 @@ export default function SubItemWise() {
           js = { 'product': '', 'thisYearProfit': 0 }
           if (res.data.lstResult[index]['subItemName'] === null) {
             name.push("null")
-            tempdata.push({ value: res.data.lstResult[index]['NetWeight'], name: 'null' })
+            tempdata.push({ value: res.data.lstResult[index][inputdata['column']], name: 'null' })
 
           } else {
             name.push(res.data.lstResult[index]['subItemName'])
-            tempdata.push({ value: res.data.lstResult[index]['NetWeight'], name: res.data.lstResult[index]['subItemName'] })
+            tempdata.push({ value: res.data.lstResult[index][inputdata['column']], name: res.data.lstResult[index]['subItemName'] })
           }
           weight.push(res.data.lstResult[index][inputdata['column']])
 

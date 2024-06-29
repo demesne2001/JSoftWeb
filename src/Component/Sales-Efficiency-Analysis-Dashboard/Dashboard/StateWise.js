@@ -30,13 +30,7 @@ export default function StateWise() {
 	const [Map, setMap] = useState([]);
 	const [prc, setprc] = useState([]);
 
-	// const options_semidonut = StateWise_SemiDonut(name, state, inputdata['column'])
-	// const options_Treemap = StateWise_Treemap(name, inputdata['column'])
-	const series_treemap = [
-		{
-			data: state
-		}
-	]
+
 	let semiDonut = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		charttype: 'semi-donut',
@@ -54,6 +48,11 @@ export default function StateWise() {
 				fontSize: 20,
 				fontWeight: 'bold'
 			}
+		},
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc' ? '%' : ""}`,
+			confine: true
 		}
 	}
 	let map = {
@@ -63,7 +62,13 @@ export default function StateWise() {
 		height: '100%',
 		width: '100%',
 		chartId: 'StateWise',
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc' ? '%' : ""}`,
+			confine: true
+		}
 	}
+	console.log(inputdata.column, "sjahgjuda");
 	let treemap = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		charttype: 'treemap',
@@ -74,27 +79,38 @@ export default function StateWise() {
 				data: state
 			}
 		],
+		column:inputdata.column
 	}
 	var optionbar = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		charttype: 'bar',
 		height: '400%',
 		width: '100%',
-		chartId: 'ItemWise',
+		chartId: 'StateWise',
 		Xaxis: name,
 		Yaxis: weight,
-		prclst:prc
+		prclst: prc,
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc' ? '%' : ""}`,
+			confine: true
+		}
 	}
 	var barHorizontal = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		charttype: 'round-horizontal-bar',
 		height: '100%',
 		width: '100%',
-		chartId: 'ItemWise',
+		chartId: 'StateWise',
 		Xaxis: name,
 		Yaxis: weight,
 		divname: 'crancy-progress-card card-contain-graph',
-		prclst:prc
+		prclst: prc,
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc' ? '%' : ""}`,
+			confine: true
+		}
 	}
 	const series_semidonut = weight;
 
@@ -147,8 +163,8 @@ export default function StateWise() {
 							// name.push({ x: res.data.lstResult[index]['Statename'] + "\n" +"(" +res.data.lstResult[index][inputdata['column']]+")", y: res.data.lstResult[index][inputdata['column']] })
 							name.push({ x: res.data.lstResult[index]['Statename'], y: res.data.lstResult[index][inputdata['column']] })
 							name1.push(res.data.lstResult[index]['Statename'])
-							data.push({ value: res.data.lstResult[index]['NetWeight'], name: res.data.lstResult[index]['Statename'] })
-							map.push({ name: res.data.lstResult[index]['Statename'], value: res.data.lstResult[index]['NetWeight'] })
+							data.push({ value: res.data.lstResult[index][inputdata['column']], name: res.data.lstResult[index]['Statename'] })
+							map.push({ name: res.data.lstResult[index]['Statename'], value: res.data.lstResult[index][inputdata['column']] })
 						}
 						weight.push(res.data.lstResult[index][inputdata['column']])
 						tempprc.push(res.data.lstResult[index]['Prc']);
@@ -220,7 +236,7 @@ export default function StateWise() {
 
 	});
 	function handleNavigation() {
-		navigate('/graph-detail', { state: { grouping: "k.stateID,k.Statename", columnName: "Statename", columnID: "stateID", componentName: "State Wise", filterKey: "strState", chartId: 2 , FromDate: inputdata.FromDate, ToDate : inputdata.ToDate}, replace: true })
+		navigate('/graph-detail', { state: { grouping: "k.stateID,k.Statename", columnName: "Statename", columnID: "stateID", componentName: "State Wise", filterKey: "strState", chartId: 2, FromDate: inputdata.FromDate, ToDate: inputdata.ToDate }, replace: true })
 	}
 
 	async function fetchOption() {
@@ -303,8 +319,8 @@ export default function StateWise() {
 						// name.push({ x: res.data.lstResult[index]['Statename'] + "\n" +"(" +res.data.lstResult[index][inputdata['column']]+")", y: res.data.lstResult[index][inputdata['column']] })
 						name.push({ x: res.data.lstResult[index]['Statename'], y: res.data.lstResult[index][inputdata['column']] })
 						name1.push(res.data.lstResult[index]['Statename'])
-						data.push({ value: res.data.lstResult[index]['NetWeight'], name: res.data.lstResult[index]['Statename'] })
-						map.push({ name: res.data.lstResult[index]['Statename'], value: res.data.lstResult[index]['NetWeight'] })
+						data.push({ value: res.data.lstResult[index][inputdata['column']], name: res.data.lstResult[index]['Statename'] })
+						map.push({ name: res.data.lstResult[index]['Statename'], value: res.data.lstResult[index][inputdata['column']] })
 					}
 					weight.push(res.data.lstResult[index][inputdata['column']])
 					tempprc.push(res.data.lstResult[index]['Prc']);

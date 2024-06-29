@@ -64,7 +64,7 @@ export default function CommanSheduleChart(props) {
 
     // All UseEffects
     useEffect(() => {
-        console.log("api called");
+
         getChartData()
     }, [inputdata])
 
@@ -89,7 +89,7 @@ export default function CommanSheduleChart(props) {
         } else {
             inputdata = { ...inputdata, 'Mode': props.id }
         }
-        console.log(inputdata, "secondmainasdhyuh");
+
 
         post(inputdata, API.scheduleGetcommonChart, {}, "post").then((res) => {
 
@@ -127,7 +127,7 @@ export default function CommanSheduleChart(props) {
 
     function getChartDetailData() {
         inputdataDetail = { ...inputdataDetail, 'Mode': props.id - 10, 'FromDate': props.Date.FromDate, 'Todate': props.Date.ToDate }
-        console.log(inputdataDetail, "sdhqwgteyugqw");
+
         post(inputdataDetail, API.GetChartDetailWise, {}, "post").then((res) => {
 
             if (res.data !== undefined) {
@@ -164,7 +164,7 @@ export default function CommanSheduleChart(props) {
 
     function handleNavigate() {
         if (props.screen === 1) {
-            console.log(inputdata.FromDate, inputdata.Todate, "sdasdgausydg");
+
             navigate('/schedual_analysis_detail', { state: { id: props.id, FromDate: inputdata.FromDate, ToDate: inputdata.Todate }, replace: true });
             // contextData.SetState({...contextData.state, [FromDate] : inputdata.FromDate,  })
         }
@@ -214,8 +214,12 @@ export default function CommanSheduleChart(props) {
 
     }
     function DivOnClick() {
-        console.log(updatecontext, "asdhafd");
+
         if (props.screen === 2) {
+            if (updatecontext.filtername !== undefined && updatecontext.filtervalue !== undefined) {
+                contextData.setfilterValue(updatecontext.filtervalue)
+                contextData.setfiltername(updatecontext.filtername)
+            }
             contextData.SetdetailedState({ ...contextData.detailedstate, ['TravellingTeamID']: updatecontext.TravellingTeamID })
         } else {
             contextData.setbillState({ ...contextData.billstate, ['ScheduleID']: updatecontext.ScheduleID })
@@ -228,7 +232,7 @@ export default function CommanSheduleChart(props) {
         } else {
             inputdata = { ...inputdata, 'Mode': props.id, 'sort': flagSort }
         }
-        // console.log(inputdata, "secongfdmainasdhyuh");
+
 
         post(inputdata, API.scheduleGetcommonChart, {}, "post").then((res) => {
 
@@ -267,11 +271,11 @@ export default function CommanSheduleChart(props) {
     // Return   
     return (
         <div class="col-xl-12 col-lg-12 col-md-12 col-12">
-            {console.log(props.id, "idfer")}
+
             <div className="graph-card">
                 <div className='card-title-graph schedule-graph'>
                     <div className="col-xs-8 col-sm-10 col-md-10 col-10" onClick={handleNavigate}>
-                        <p><i class={CommanSheduleObject[props.id]['iconclassName']}></i>{CommanSheduleObject[props.id]['heading']} <div style={{ fontSize: '15px' }}> {props.screen === 3 ? contextData.filtername !== "" && contextData.filterValue !== undefined ? " ( " + contextData.filtername + " ) " + CommanSheduleObject[props.id]['yAxis'][0]+" : " + contextData.filterValue : null : null}</div></p>
+                        <p><i class={CommanSheduleObject[props.id]['iconclassName']}></i>{CommanSheduleObject[props.id]['heading']} <div style={{ fontSize: '15px' }}> {props.screen === 3 ? contextData.filtername !== "" && contextData.filterValue !== undefined ? " ( " + contextData.filtername + " ) " + CommanSheduleObject[props.id]['yAxis'][0] + " : " + contextData.filterValue : null : null}</div></p>
                     </div>
                     {props.screen !== 3 ?
                         <div className="col-xs-1 col-sm-1 col-md-1 col-1" >
@@ -292,11 +296,11 @@ export default function CommanSheduleChart(props) {
                             </div>
                         </div> : null}
                 </div>
-                {console.log(yAxis)}
+
                 {dataloader !== true ?
                     loader !== true || props.screen === 3 ? props.screen === 1 ? <div class="crancy-progress-card card-contain-graph">{props.id !== 4 ? <ReactApexChart options={chartOptions[props.id]['Chartoption'](xAxis, yAxis, contextData.state['Unit'], props.id)[0]} series={chartOptions[props.id]['Chartoption'](xAxis, yAxis, contextData.state['Unit'], props.id)[1]} type={chartOptions[props.id]['ChartType']} height={350} /> : <AlphaDashChart obj={JSON.parse(JSON.stringify(chartOptions[props.id]['Chartoption'](xAxis, yAxis, contextData.state['Unit'], props.id)[0]))} />}</div> :
                         props.screen !== 3 ?
-                            <div class="crancy-progress-card card-contain-graph shedule-secondscreen" onClick={DivOnClick}> {props.id !== 4 ? <ReactApexChart options={chartOptionsScreen2[props.id]['Chartoption'](xAxis, yAxis, contextData, TravelingId, props.id, contextData.state['Unit'])[0]} series={chartOptionsScreen2[props.id]['Chartoption'](xAxis, yAxis, contextData, TravelingId, props.id, contextData.state['Unit'])[1]} type={chartOptionsScreen2[props.id]['ChartType']} height={400} /> :<AlphaDashChart obj={JSON.parse(JSON.stringify(chartOptionsScreen2[props.id]['Chartoption'](xAxis, yAxis, contextData, TravelingId, props.id, contextData.state['Unit'])[0]))} state={contextData.detailedstate} />} </div> :
+                            <div class="crancy-progress-card card-contain-graph shedule-secondscreen" onClick={DivOnClick}> {props.id !== 4 ? <ReactApexChart options={chartOptionsScreen2[props.id]['Chartoption'](xAxis, yAxis, contextData, TravelingId, props.id, contextData.state['Unit'])[0]} series={chartOptionsScreen2[props.id]['Chartoption'](xAxis, yAxis, contextData, TravelingId, props.id, contextData.state['Unit'])[1]} type={chartOptionsScreen2[props.id]['ChartType']} height={400} /> : <AlphaDashChart obj={JSON.parse(JSON.stringify(chartOptionsScreen2[props.id]['Chartoption'](xAxis, yAxis, contextData, TravelingId, props.id, contextData.state['Unit'])[0]))} state={contextData.detailedstate} />} </div> :
                             window.innerWidth < 1870 && props.id === 13 && props.screen === 3 ? <div class="crancy-progress-card card-contain-graph shedule-thirdscreen">
                                 <Table responsive striped bordered hover>
                                     <thead>
@@ -318,7 +322,7 @@ export default function CommanSheduleChart(props) {
                                         }
                                     </tbody>
                                 </Table>
-                            </div> : <div class="crancy-progress-card card-contain-graph shedule-thirdscreen" onClick={DivOnClick}>{props.id !== 14 ? <ReactApexChart options={chartOptionsScreen2[props.id]['Chartoption'](xAxisDetailed, yAxisDetailed, contextData, SheduleId, props.id, contextData.state['Unit'])[0]} series={chartOptionsScreen2[props.id]['Chartoption'](xAxisDetailed, yAxisDetailed, contextData, SheduleId, props.id, contextData.state['Unit'])[1]} type={chartOptionsScreen2[props.id]['ChartType']} height={650} /> :<div style={{height:650}}> <AlphaDashChart obj={JSON.parse(JSON.stringify(chartOptionsScreen2[props.id]['Chartoption'](xAxisDetailed, yAxisDetailed, contextData, SheduleId, props.id, contextData.state['Unit'])[0]))}  state={contextData.billstate} /></div>}</div> : <div className='crancy-progress-card card-contain-graph'>{props.screen === 3 ? null : "Not Found"}</div> : <div className="crancy-progress-card card-contain-graph">
+                            </div> : <div class="crancy-progress-card card-contain-graph shedule-thirdscreen" onClick={DivOnClick}>{props.id !== 14 ? <ReactApexChart options={chartOptionsScreen2[props.id]['Chartoption'](xAxisDetailed, yAxisDetailed, contextData, SheduleId, props.id, contextData.state['Unit'])[0]} series={chartOptionsScreen2[props.id]['Chartoption'](xAxisDetailed, yAxisDetailed, contextData, SheduleId, props.id, contextData.state['Unit'])[1]} type={chartOptionsScreen2[props.id]['ChartType']} height={650} /> : <div style={{ height: 650 }}> <AlphaDashChart obj={JSON.parse(JSON.stringify(chartOptionsScreen2[props.id]['Chartoption'](xAxisDetailed, yAxisDetailed, contextData, SheduleId, props.id, contextData.state['Unit'])[0]))} state={contextData.billstate} /></div>}</div> : <div className='crancy-progress-card card-contain-graph'>{props.screen === 3 ? null : "Not Found"}</div> : <div className="crancy-progress-card card-contain-graph">
                         <div class="dot-spinner" style={{ margin: "auto", position: 'inherit' }} >
                             <div class="dot-spinner__dot"></div>
                             <div class="dot-spinner__dot"></div>

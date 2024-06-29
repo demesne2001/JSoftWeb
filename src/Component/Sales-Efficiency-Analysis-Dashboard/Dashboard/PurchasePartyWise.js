@@ -38,28 +38,38 @@ export default function PurchasePartyWise() {
     themeId: localStorage.getItem("ThemeIndex"),
     charttype: 'roundbar',
     height: '400px',
-    chartId: 'designwise',
+    chartId: 'DesignWise',
     width: '100%',
     Xaxis: name,
     Yaxis: weight,
     divname: "crancy-progress-card card-contain-graph",
-    prclst: prc
+    prclst: prc,
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
   let radialdata = {
     themeId: localStorage.getItem("ThemeIndex"),
     charttype: 'polar-radialbar',
     height: '100%',
     width: '100%',
-    chartId: 'designwise',
+    chartId: 'DesignWise',
     radiusAxis: name,
     seriesdata: weight,
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
   let optiondonut = {
     themeId: localStorage.getItem("ThemeIndex"),
     charttype: 'donut',
     height: '100%',
     width: '100%',
-    chartId: 'designwise',
+    chartId: 'DesignWise',
     propdata: data,
     radius: [10, 150],
     label: {
@@ -72,7 +82,12 @@ export default function PurchasePartyWise() {
         fontSize: 20,
         fontWeight: 'bold'
       }
-    }
+    },
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
 
   }
 
@@ -82,20 +97,24 @@ export default function PurchasePartyWise() {
     height: '100%',
     width: '100%',
     propdata: data,
-    chartId: 'PieChartdesignwise',
+    chartId: 'DesignWise',
     label: {
       position: 'inside',
       formatter: '{d}%',
       color: 'white',
       fontWeight: 'bold',
     },
+    tooltip:{
+			formatter:`{b}<br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`  
+		}
   }
   let optradialbar = {
     themeId: localStorage.getItem("ThemeIndex"),
     charttype: 'semi-donut',
     height: '100%',
     width: '100%',
-    chartId: 'RadialBarchartdesignwise',
+    chartId: 'DesignWise',
     propdata: data,
     position: 'center',
     fontsize: 20,
@@ -109,7 +128,12 @@ export default function PurchasePartyWise() {
         fontSize: 20,
         fontWeight: 'bold'
       }
-    }
+    },
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
   function handleclick(e) {
     if (e.target.id !== 'save' && e.target.id !== 'myDropdowniconbranch' && e.target.id !== '') {

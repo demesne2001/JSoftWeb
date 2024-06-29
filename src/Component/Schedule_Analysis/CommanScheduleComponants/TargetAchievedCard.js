@@ -46,7 +46,7 @@ export default function TargetAchievedCard() {
 
     function getCardData() {
         inputdata = { ...inputdata, 'Mode': 1 };
-        console.log(inputdata,"sdsdsdwe");
+
         post(inputdata, API.scheduleGetcommonCard, {}, "post").then((res) => {
             if (res.data !== undefined) {
 

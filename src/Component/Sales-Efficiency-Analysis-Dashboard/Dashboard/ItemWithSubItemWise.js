@@ -32,10 +32,15 @@ export default function ItemWithSubItemWise() {
 		charttype: 'bar',
 		height: '400%',
 		width: '100%',
-		chartId: 'itemWithSubItemWise',
+		chartId: 'ItemWithSubItemWise',
 		Xaxis: name,
 		Yaxis: weight,
-		prclst:prc
+		prclst:prc,
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true
+		}
 	}
 
 	let barHorizontal = {
@@ -43,27 +48,37 @@ export default function ItemWithSubItemWise() {
 		charttype: 'round-horizontal-bar',
 		height: '100%',
 		width: '100%',
-		chartId: 'itemWithSubItemWise',
+		chartId: 'ItemWithSubItemWise',
 		Xaxis: name,
 		Yaxis: weight,
 		divname: 'crancy-progress-card card-contain-graph',
-		prclst:prc
+		prclst:prc,
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true  
+		}
 	}
 	let radialdata = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		charttype: 'polar-radialbar',
 		height: '100%',
 		width: '100%',
-		chartId: 'itemWithSubItemWise',
+		chartId: 'ItemWithSubItemWise',
 		radiusAxis: name,
 		seriesdata: weight,
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true  
+		}
 	}
 	let optiondonut = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		charttype: 'donut',
 		height: '100%',
 		width: '100%',
-		chartId: 'itemWithSubItemWise',
+		chartId: 'ItemWithSubItemWise',
 		propdata: data,
 		radius: [10, 150],
 		label: {
@@ -76,6 +91,11 @@ export default function ItemWithSubItemWise() {
 				fontSize: 20,
 				fontWeight: 'bold'
 			}
+		},
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true  
 		}
 
 	}
@@ -86,20 +106,25 @@ export default function ItemWithSubItemWise() {
 		height: '100%',
 		width: '100%',
 		propdata: data,
-		chartId: 'PieChartitemWithSubItemWise',
+		chartId: 'ItemWithSubItemWise',
 		label: {
 			position: 'inside',
 			formatter: '{d}%',
 			color: 'white',
 			fontWeight: 'bold',
 		},
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true  
+		}
 	}
 	let optradialbar = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		charttype: 'semi-donut',
 		height: '100%',
 		width: '100%',
-		chartId: 'RadialBarchartitemWithSubItemWise',
+		chartId: 'ItemWithSubItemWise',
 		propdata: data,
 		position: 'center',
 		fontsize: 20,
@@ -113,17 +138,16 @@ export default function ItemWithSubItemWise() {
 				fontSize: 20,
 				fontWeight: 'bold'
 			}
+		},
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true  
 		}
 	}
 	const navigate = useNavigate()
 
 	const gradientArray = new Gradient().setColorGradient("#01555b", "#98c8cb").getColors()
-
-	const options_bar = ItemWithSubItemWise_bar(name, inputdata['column']);
-	const options_vbar = ItemWithSubItemWise_vbar(name, inputdata['column']);
-	const series = [{
-		data: weight
-	}]
 
 	function handleclick(e) {
 

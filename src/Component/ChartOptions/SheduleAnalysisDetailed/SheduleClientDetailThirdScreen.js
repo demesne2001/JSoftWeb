@@ -52,7 +52,7 @@ export default function SheduleClientDetailThirdScreen(xAxis, yAxis, contextData
     //         show: true,
     //       },
     //       formatter: function (val, config) {
-    //         console.log(config['dataPointIndex']);
+
     //         return "TotalParty : " + yAxis[0][config['dataPointIndex']].toString() + "<br/>VistedParty : " + yAxis[1][config['dataPointIndex']].toString() + "<br/>Prc : " + yAxis[2][config['dataPointIndex']].toString() + "%"
 
     //       },
@@ -99,7 +99,7 @@ export default function SheduleClientDetailThirdScreen(xAxis, yAxis, contextData
         }
         return templs;
     }
-    //   console.log(document.getElementsByClassName('crancy-progress-card card-contain-graph')[0].clientWidth, "height div");
+
     // const option = {
     //   height: 350,
     //   width: document.getElementsByClassName('crancy-progress-card card-contain-graph')[0].clientWidth,
@@ -121,7 +121,8 @@ export default function SheduleClientDetailThirdScreen(xAxis, yAxis, contextData
         } else {
             return [parseInt(Math.max(...ansmax).toFixed(0)) + 1, parseInt(Math.min(...ansmin).toFixed(0)) + 1]
         }
-    } console.log(yAxis, "sdyrt67asygt");
+    }
+
     let option = {}
     if (document.getElementsByClassName('crancy-progress-card card-contain-graph')[0] !== undefined) {
         option = {
@@ -143,7 +144,8 @@ export default function SheduleClientDetailThirdScreen(xAxis, yAxis, contextData
             minval: findMinMax()[1],
             barnum: 4,
             divname: 'crancy-progress-card card-contain-graph',
-            tooltipid: 4
+            tooltipid: 4,
+            filtervalueindex:0
         }
     }
 

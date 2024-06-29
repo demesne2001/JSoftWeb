@@ -28,7 +28,7 @@ const ContexState1 = (props) => {
         "strMetalType": "",
         "strDayBook": "",
         "PageNo": 1,
-        "PageSize": 10,
+        "PageSize": 1000,
         "SortBy": "wt-desc",
         "SortByLabel": "",
         "Search": "",
@@ -63,7 +63,7 @@ const ContexState1 = (props) => {
         "strMetalType": "",
         "strDayBook": "",
         "PageNo": 1,
-        "PageSize": 10,
+        "PageSize": 1000,
         "Search": "",
         "Grouping": "",
         "SortBy": "wt-desc",
@@ -93,12 +93,13 @@ const ContexState1 = (props) => {
 
     const [defaultchartFilterName,  setdefaultchartFilterName] = useState("");
     const [TageImageFilterName,  settagImageFilterName] = useState("");
-
+    const [defaultchartValue,  setdefaultchartValue] = useState("");
+    const [TageImageValue,  settagImageValue] = useState("");
     let Index = localStorage.getItem("ThemeIndex")
 	const [ThemeIndex, setThemeIndex] = useState(Index)
     return (
 
-        <contex.Provider value={{setThemeIndex, ThemeIndex, setdefaultchartFilterName, defaultchartFilterName, TageImageFilterName , settagImageFilterName , state: state, SetState: SetState, defaultchart, setDefaultChart, chartImage, setchartImage }}>
+        <contex.Provider value={{defaultchartValue, setdefaultchartValue, settagImageValue, TageImageValue, setThemeIndex, ThemeIndex, setdefaultchartFilterName, defaultchartFilterName, TageImageFilterName , settagImageFilterName , state: state, SetState: SetState, defaultchart, setDefaultChart, chartImage, setchartImage }}>
 
             {props.children}
 

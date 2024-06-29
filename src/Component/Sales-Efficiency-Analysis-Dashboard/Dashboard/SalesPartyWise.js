@@ -29,33 +29,44 @@ export default function SalesPartyWise() {
 	const [demo, setdemo] = useState("bar")
 	const [optionId, setOptionId] = useState()
 	const [flagSort, setflagSort] = useState('')
-	
+
 	const navigate = useNavigate()
 	let optionbar = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		charttype: 'bar',
 		height: '400%',
 		width: '100%',
-		chartId: 'Sales Party Wise',
+		chartId: 'SalesPartyWise',
 		Xaxis: name,
 		Yaxis: weight,
-		prclst:prc
+		prclst: prc,
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc' ? '%' : ""}`,
+			confine: true
+		},
+
 	}
 	let radialdata = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		charttype: 'polar-radialbar',
 		height: '100%',
 		width: '100%',
-		chartId: 'Sales Party Wise',
+		chartId: 'SalesPartyWise',
 		radiusAxis: name,
 		seriesdata: weight,
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc' ? '%' : ""}`,
+			confine: true
+		}
 	}
 	let optiondonut = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		charttype: 'donut',
 		height: '100%',
 		width: '100%',
-		chartId: 'Sales Party Wise',
+		chartId: 'SalesPartyWise',
 		propdata: data,
 		radius: [10, 150],
 		label: {
@@ -68,6 +79,11 @@ export default function SalesPartyWise() {
 				fontSize: 20,
 				fontWeight: 'bold'
 			}
+		},
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc' ? '%' : ""}`,
+			confine: true
 		}
 
 	}
@@ -78,20 +94,25 @@ export default function SalesPartyWise() {
 		height: '100%',
 		width: '100%',
 		propdata: data,
-		chartId: 'PieChartSales Party Wise',
+		chartId: 'SalesPartyWise',
 		label: {
 			position: 'inside',
 			formatter: '{d}%',
 			color: 'white',
 			fontWeight: 'bold',
 		},
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc' ? '%' : ""}`,
+			confine: true
+		}
 	}
 	let optradialbar = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		charttype: 'semi-donut',
 		height: '100%',
 		width: '100%',
-		chartId: 'RadialBarchartSales Party Wise',
+		chartId: 'SalesPartyWise',
 		propdata: data,
 		position: 'center',
 		fontsize: 20,
@@ -105,6 +126,11 @@ export default function SalesPartyWise() {
 				fontSize: 20,
 				fontWeight: 'bold'
 			}
+		},
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc' ? '%' : ""}`,
+			confine: true
 		}
 	}
 	let optionPolar = {
@@ -112,17 +138,15 @@ export default function SalesPartyWise() {
 		charttype: 'pie',
 		height: '100%',
 		width: '100%',
-		chartId: 'Sales Party Wise',
+		chartId: 'SalesPartyWise',
 		propdata: data,
 		radius: [10, 110],
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc' ? '%' : ""}`,
+			confine: true
+		}
 	}
-	const options_lolipop = SalesPartyWiseLolipop(name, inputdata['column'])
-	const options_bar = SalesPartyWise_bar(name, inputdata['column'])
-	const series = [{
-		name: 'Weight',
-		data: weight
-	}]
-
 	function handleclick(e) {
 
 		if (e.target.id !== 'save' && e.target.id !== 'myDropdowniconbranch' && e.target.id !== '') {
@@ -253,7 +277,7 @@ export default function SalesPartyWise() {
 	}
 
 	function handleNavigation() {
-		navigate('/graph-detail', { state: { grouping: "a.accountID,c.AccountName", columnName: "AccountName", columnID: "accountID", componentName: "Sales Party Wise", filterKey: "strSalesParty", chartId: 10, FromDate: inputdata.FromDate, ToDate : inputdata.ToDate }, replace: true })
+		navigate('/graph-detail', { state: { grouping: "a.accountID,c.AccountName", columnName: "AccountName", columnID: "accountID", componentName: "Sales Party Wise", filterKey: "strSalesParty", chartId: 10, FromDate: inputdata.FromDate, ToDate: inputdata.ToDate }, replace: true })
 	}
 
 	async function fetchOption() {

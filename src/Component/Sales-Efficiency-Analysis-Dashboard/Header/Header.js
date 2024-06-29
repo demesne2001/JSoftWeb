@@ -561,7 +561,7 @@ export default function Header() {
 
         // download(dataUrl, "file1.png")
         post({ "Base64": dataUrl, "Extension": "png", "LoginID": name }, API.uploadImage, {}, "post").then((res) => {
-          console.log(res, "dsd");
+
           if (res.data !== undefined) {
             nameArray.push(res.data.filename);
 
@@ -1098,6 +1098,7 @@ export default function Header() {
                               <i
                                 className="fas fa-expand-alt"
                                 onClick={Handlefullscreen}
+                                id="fullscreenicon"
                               ></i>
                             </div>
                           </li>
@@ -1107,6 +1108,7 @@ export default function Header() {
                               id="Filtermodal"
                             >
                               <i
+                              id="filtericon"
                                 className="fas fa-filter"
                                 onClick={handlerOnOpen}
                               ></i>
@@ -1117,7 +1119,7 @@ export default function Header() {
                               className="geex-content__header__quickaction__link  geex-btn__customizer"
                               id="Filtermodal"
                             >
-                              <i class="fa-solid fa-palette" onClick={handlerOnTheme}></i>
+                              <i class="fa-solid fa-palette" onClick={handlerOnTheme} id="themeicon"></i>
                               <div id="open-modal" class="modal-window">
                                 <div>
                                   <div class="header22">

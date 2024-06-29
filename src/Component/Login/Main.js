@@ -80,38 +80,42 @@ const Main = () => {
     post(login, API.login, {}, "post").then((res) => {
       if (res.data === undefined) {
         alert(res.Error)
-        document.getElementsByClassName('user')[0].value = "";
-        document.getElementsByClassName('user')[1].value = "";
-        document.getElementsByClassName('user')[0].focus()
+        if (document.getElementsByClassName('user') != undefined) {
+          document.getElementsByClassName('user')[0].value = "";
+          document.getElementsByClassName('user')[1].value = "";
+          document.getElementsByClassName('user')[0].focus()
+        }
       } else {
         if (res.data.HasError === false) {
           if (res.data.UserName === undefined) {
             alert(res.data.Message)
-            document.getElementsByClassName('user')[0].value = "";
-            document.getElementsByClassName('user')[1].value = "";
-            document.getElementsByClassName('user')[0].focus()
+            if (document.getElementsByClassName('user') != undefined) {
+              document.getElementsByClassName('user')[0].value = "";
+              document.getElementsByClassName('user')[1].value = "";
+              document.getElementsByClassName('user')[0].focus()
+            }
 
           } else {
             localStorage.setItem('username', res.data.UserName)
             localStorage.setItem('token', res.data.Token)
             post({ VendorID: 0, PageID: 0 }, API.GetPageData, [], "post").then(
               (res) => {
-                console.log("login Data", res);
+
                 if (res.data != undefined) {
                   localStorage.setItem("PageData", JSON.stringify([]));
                   if (res.data.lstResult.length > 0) {
-                    console.log("true cond");
+
                     localStorage.setItem(
                       "PageData",
                       JSON.stringify(res.data.lstResult)
                     );
 
                   } else {
-                    console.log("false cond");
+
 
                     localStorage.setItem("PageData", JSON.stringify([]));
                   }
-                  console.log('before call')
+
                   navigate("/Home", { replace: true });
                 }
               }

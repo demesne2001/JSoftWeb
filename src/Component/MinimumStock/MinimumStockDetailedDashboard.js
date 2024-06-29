@@ -69,7 +69,7 @@ export default function MinimumStockDetailedDashboard() {
     }, [])
 
     useEffect(() => {
-        console.log(mainChartProps, "mainchart");
+
         if (JSON.stringify(mainChartProps) !== JSON.stringify({}) && mainChartProps.componentName !== null) {
             setDefaultChartProps({ name: 'SubItem', iconClass: 'fas fa-th-list', group: '', column: '', columnID: '', componentName: 'Sub-Item Wise', filter_key1: '', filter_key2: '', ChartMode: '5', screen: 2, filterkey: 'SubItemID', dropdown:mainChartProps.showdropdown, FromDate:mainChartProps.FromDate, ToDate: mainChartProps.ToDate, filterdata : mainChartProps.filterdata })
             setThirdChartProps({ name: 'SubItem-range', iconClass: 'fas fa-th-list', group: '', column: '', columnID: '', componentName: 'Sub-Item-Range Wise', filter_key1: '', filter_key2: '', ChartMode: '6', FromDate:mainChartProps.FromDate, ToDate: mainChartProps.ToDate, filterdata : mainChartProps.filterdata })

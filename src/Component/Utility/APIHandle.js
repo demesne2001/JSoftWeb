@@ -17,7 +17,7 @@ export default async function post(inputJson, APINAME, defaultRes, methodType) {
         return await axios.post(APINAME, inputJson, { headers: header })
             // return await axios.post(APINAME, inputJson)
             .then((res) => {
-                console.log("api handle res", res);
+
                 if (res.data.HasError === true) {
                     defaultRes['statusText'] = res.data.Message[0]
                     defaultRes['status'] = 200
@@ -33,7 +33,7 @@ export default async function post(inputJson, APINAME, defaultRes, methodType) {
 
                     defaultRes['Error'] = E.statusText
                     // alert(E)
-                    console.log("errors", E);
+
 
                     return defaultRes
                     // throw defaultRes
@@ -44,7 +44,7 @@ export default async function post(inputJson, APINAME, defaultRes, methodType) {
                     } else {
                         // alert(E)
                         defaultRes['Error'] = E
-                        console.log("errors", E);
+
                         return defaultRes
                         // throw defaultRes
                     }
@@ -55,7 +55,7 @@ export default async function post(inputJson, APINAME, defaultRes, methodType) {
     else if (methodType === 'get') {
         return await axios.post(APINAME, {}, { headers: header })
             .then((res) => {
-                // console.log("api handle res", res);
+
                 if (res.data.HasError === true) {
                     defaultRes['statusText'] = res.data.Message[0]
                     defaultRes['status'] = 200

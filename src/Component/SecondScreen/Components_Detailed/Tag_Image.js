@@ -24,6 +24,7 @@ export default function Tag_Image(props) {
     const [TotalCount, setTotalCount] = useState();
     const [ImageData, setImageData] = useState([]);
     const [show, setShow] = useState(false);
+    const [count, setcount] = useState(true);
     const filtername = contextData.TageImageFilterName
 
     const handleClose = () => setShow(false);
@@ -34,10 +35,11 @@ export default function Tag_Image(props) {
 
         setCurrentPage(1)
         setPageNo(0)
-        console.log(inputdata, "sdtagimage");
+        handleButtonCss()
     }, [inputdata])
     useEffect(() => {
         handleShowPhotos()
+        handleButtonCss()
     }, [])
     useEffect(() => {
         if (pageNo === 0) {
@@ -51,7 +53,14 @@ export default function Tag_Image(props) {
         } else {
             document.getElementById('nxt').style.display = 'block';
         }
+        handleButtonCss()
+
     }, [pageNo, TotalCount])
+    useEffect(() => {
+        handleButtonCss()
+
+
+    }, [currentPage])
     const settings = {
 
         speed: 500,
@@ -103,6 +112,73 @@ export default function Tag_Image(props) {
         );
     }
 
+    function handleButtonCss() {
+        console.log();
+        if (count === true) {
+            console.log(count, "count");
+            setTimeout(() => {
+                if (document.getElementById(currentPage) !== undefined && document.getElementById(currentPage) !== null) {
+                    console.log(currentPage, "askhdaugsd");
+                    let imagebuttonlist = document.getElementsByClassName('pageImageButtom');
+                    for (let i = 0; i < imagebuttonlist.length; i++) {
+                        if (imagebuttonlist[i].id !== currentPage.toString()) {
+                            imagebuttonlist[i].style.backgroundColor = '#a8c6dd';
+                            imagebuttonlist[i].style.border = 'none';
+                        } else {
+                            imagebuttonlist[i].style.backgroundColor = '#e3e9ed';
+                            imagebuttonlist[i].style.color = '#094876';
+                            imagebuttonlist[i].style.border = '1px solid #094876';
+                        }
+                    }
+
+                } else {
+                    let imagebuttonlist = document.getElementsByClassName('pageImageButtom');
+                    for (let i = 0; i < imagebuttonlist.length; i++) {
+                        if (imagebuttonlist[i].id !== currentPage.toString()) {
+                            imagebuttonlist[i].style.backgroundColor = '#a8c6dd';
+                            imagebuttonlist[i].style.border = 'none';
+                        } else {
+                            imagebuttonlist[i].style.backgroundColor = '#e3e9ed';
+                            imagebuttonlist[i].style.color = '#094876';
+                            imagebuttonlist[i].style.border = '1px solid #094876';
+                        }
+                    }
+
+                }
+                setcount(false)
+            }, [1000])
+        } else {
+            if (document.getElementById(currentPage) !== undefined && document.getElementById(currentPage) !== null) {
+                console.log(currentPage, "askhdaugsd");
+                let imagebuttonlist = document.getElementsByClassName('pageImageButtom');
+                for (let i = 0; i < imagebuttonlist.length; i++) {
+                    if (imagebuttonlist[i].id !== currentPage.toString()) {
+                        imagebuttonlist[i].style.backgroundColor = '#a8c6dd';
+                        imagebuttonlist[i].style.border = 'none';
+                    } else {
+                        imagebuttonlist[i].style.backgroundColor = '#e3e9ed';
+                        imagebuttonlist[i].style.color = '#094876';
+                        imagebuttonlist[i].style.border = '1px solid #094876';
+                    }
+                }
+
+            } else {
+                let imagebuttonlist = document.getElementsByClassName('pageImageButtom');
+                for (let i = 0; i < imagebuttonlist.length; i++) {
+                    if (imagebuttonlist[i].id !== currentPage.toString()) {
+                        imagebuttonlist[i].style.backgroundColor = '#a8c6dd';
+                        imagebuttonlist[i].style.border = 'none';
+                    } else {
+                        imagebuttonlist[i].style.backgroundColor = '#e3e9ed';
+                        imagebuttonlist[i].style.color = '#094876';
+                        imagebuttonlist[i].style.border = '1px solid #094876';
+                    }
+                }
+
+            }
+        }
+    }
+
     function SamplePrevArrow(props) {
         const { className, style, onClick } = props;
 
@@ -136,12 +212,14 @@ export default function Tag_Image(props) {
         if (pageNo > 0) {
             setPageNo(pageNo - 5);
         }
+        handleButtonCss()
     }
     function handleRightFivePage() {
 
         if ((pageNo + 5) * 5 < TotalCount) {
             setPageNo(pageNo + 5);
         }
+        handleButtonCss()
     }
 
     async function handlePageNoChange(page) {
@@ -151,7 +229,7 @@ export default function Tag_Image(props) {
         await post(inputPageUpdate, API.GetDetailChartImage, {}, "post").then((res) => {
             var imageData = [];
             if (res.data !== undefined) {
-                console.log(res.data.lstResult);
+
                 if (res.data.lstResult.length !== 0) {
                     for (let i = 0; i < res.data.lstResult.length; i++) {
                         imageData.push({ 'ImagePath': res.data.lstResult[i]['ImagePath'], 'netweight': res.data.lstResult[i]['netweight'], 'Tagno': res.data.lstResult[i]['Tagno'] })
@@ -162,6 +240,7 @@ export default function Tag_Image(props) {
             } else {
                 alert(res['Error']);
             }
+
         })
         // for (let i = 0; i < document.getElementsByClassName('pageImageButtom').length; i++) {
 
@@ -190,7 +269,7 @@ export default function Tag_Image(props) {
         <>
             <div class="col-xl-12 col-lg-12 col-md-12 col-12">
                 <div class="title-top-graphdetail">
-                    <h5><span>Tag Image {filtername !== "" ? "( " + filtername + " )" : null}</span> <div className='pageNo'>Page No.{currentPage}</div></h5>
+                    <h5><span>Tag Image {filtername !== "" ? "( " + filtername + " NetWeight - " + contextData.TageImageValue + " )" : null}</span></h5>
 
                 </div>
                 <div class="graphdetailcards-silder graphdetail-fourthcard">
@@ -207,11 +286,11 @@ export default function Tag_Image(props) {
                                 <Slider  {...settings} >
                                     {
                                         ImageData.map((e, i) => {
-                                            console.log(e, "imagedata");
+
                                             return <><li class="ag-carousel_item">
                                                 <figure class="ag-carousel_figure">
 
-                                                    <a data-fancybox="gallery" href={e['ImagePath']} data-caption={" Net Wt : " + e['netweight'].toFixed(3) + ", Tagno : " + e['Tagno']}><img src={e['ImagePath']} /></a>
+                                                    <a data-fancybox="gallery" href={e['ImagePath']} data-caption={" Net Wt : " + e['netweight'].toFixed(3) + ", Tagno : " + e['Tagno']}><img id='imageid' src={e['ImagePath']} /></a>
                                                     {/* <img src={e['ImagePath']} onClick={(e) => { openModal() }} class="hover-shadow cursor" /> */}
                                                     <figcaption class="ag-carousel_figcaption">
                                                         Net Wt: {e['netweight'].toFixed(3)}<br></br>Tag No: {e['Tagno']}

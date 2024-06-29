@@ -31,10 +31,15 @@ export default function ItemGroupWise() {
     charttype: 'polar-radialbar',
     height: '100%',
     width: '100%',
-    chartId: 'itemGroupWise',
+    chartId: 'ItemGroupWise',
     radiusAxis: name,
     seriesdata: weight,
     maxdegree: 80,
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
   let treemap = {
     themeId: localStorage.getItem("ThemeIndex"),
@@ -46,6 +51,7 @@ export default function ItemGroupWise() {
         data: finalarr
       }
     ],
+    column: inputdata.column
   }
 
   let roundedBarHorizontal = {
@@ -53,40 +59,22 @@ export default function ItemGroupWise() {
     charttype: 'round-horizontal-bar',
     height: '100%',
     width: '100%',
-    chartId: 'itemGroupWise',
+    chartId: 'ItemGroupWise',
     Xaxis: name,
     color: ['#0073b0', '#caf77d', '#8bd9e8', '#c4e8f0'],
     Yaxis: weight,
     divname:'crancy-progress-card card-contain-graph',
-    prclst:prc
+    prclst:prc,
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true 
+		}
   }
-  const options_radial = ItemGroup_RadialBar(name)
-  const options_treemap = ItemGroup_treemap(name, inputdata['column'])
-  const series_treemap = [
-    {
-      data: finalarr
-    }
-  ]
-  const series_radial = handleSeriesData()
+
 
   const navigate = useNavigate()
 
-  function handleSeriesData() {
-    let percarray = []
-    let sum = 0;
-    if (inputdata['column'] === 'NetWeight') {
-      for (let i = 0; i < weight.length; i++) {
-        sum += weight[i];
-      }
-
-      for (let index = 0; index < weight.length; index++) {
-        percarray.push((weight[index] / sum) * 100)
-      }
-      return percarray
-    } else {
-      return weight
-    }
-  }
 
   function handleclick(e) {
 

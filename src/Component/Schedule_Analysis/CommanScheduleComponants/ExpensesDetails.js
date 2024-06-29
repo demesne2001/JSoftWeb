@@ -73,11 +73,11 @@ export default function ExpensesDetails() {
         naviagte('/schedual_analysis_detail', { state: { id: 3, FromDate: inputdata.FromDate, ToDate: inputdata.Todate }, replace: true })
     }
 
-    function handleonClickRow(id, name) {
+    function handleonClickRow(id, name, value) {
 
         contexData.SetdetailedState({ ...contexData.detailedstate, ['TravellingTeamID']: id.toString() })
         contexData.setfiltername(name)
-        contexData.setfiltername(name)
+        contexData.setfilterValue(value)
     }
     function handleShowSortDropDown() {
         document.getElementById(3).style.display === "block" ? document.getElementById(3).style.display = "none" : document.getElementById(3).style.display = "block";
@@ -106,7 +106,7 @@ export default function ExpensesDetails() {
 
         inputdata = { ...inputdata, 'Mode': 3, 'sort': flagSort }
 
-        console.log(inputdata, "seconfghfhggfdmainasdhyuh");
+
 
         post(inputdata, API.scheduleGetcommonChart, {}, "post").then((res) => {
             let tempdata = [];
@@ -157,19 +157,7 @@ export default function ExpensesDetails() {
         divSize: 6,
         // ClickedIdLabel: 'ScheduleID'
     })
-    console.log({
-        resultdata: chartData,
-        XLabel: 'TravellingTeamName',
-        YLabelName: 'ExpenseAmount,SalesWt,KgExp, noTrip,TripAvgEx',
-        TypeName: 'multiple-pie',
-        XLabelID: 'TravellingTeamID',
-        SrNo: 1,
-        ContextObj: undefined,
-        PageNo: page,
-        PageSize: pageSize,
-        divSize: 12,
-        // ClickedIdLabel: 'ScheduleID'
-    },"sdfhujshufd");
+
 
     function handleclickSort(e) {
         if (e.target.id !== 3 && e.target.id !== '') {
@@ -248,7 +236,7 @@ export default function ExpensesDetails() {
                                     </tr>
                                     {
                                         chartData.map((e) => {
-                                            return <tr onClick={() => handleonClickRow(e['TravellingTeamID'], e['TravellingTeamName'])}>
+                                            return <tr onClick={() => handleonClickRow(e['TravellingTeamID'], e['TravellingTeamName'], e['ExpenseAmount'])}>
                                                 <td>{e['TravellingTeamName']}</td>
                                                 <td>{e['ExpenseAmount']}</td>
                                                 <td>{e['SalesWt']}</td>

@@ -105,7 +105,7 @@ export default function TargetAndArchievedSecondScreen(xAxis, yAxis, contextData
     //         y: {
     //             formatter: function (val, config) {
     //                 if (config['seriesIndex'] === 2) {
-    //                     // console.log(val);
+
     //                     return (val.toFixed(0)).toString() + "%"
     //                 } else {
     //                     return (val).toString() + " " + unit

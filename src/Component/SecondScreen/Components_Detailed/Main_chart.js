@@ -29,7 +29,7 @@ export default function Main_chart(props) {
     let input = contextData.state;
     const [loader, setLoader] = useState(true);
     const [dataloader, setdataLoader] = useState(true);
-
+    let percentage;
     const options_hbar = secondScreen_hbar(name, contextData, id, props.state.filterKey)
     const options_donut = secondScreen_donut(name, contextData, id, props.state.filterKey)
     // const options_radialbar = secondScreen_radial(name)
@@ -81,7 +81,7 @@ export default function Main_chart(props) {
         //     }
         // })
 
-        console.log(input, "main chart input");
+
 
         await post(input, API.GetDetailCommanChart, {}, "post").then((res) => {
             let name = [];
@@ -90,16 +90,16 @@ export default function Main_chart(props) {
             let tempdata = [];
             let tempprc = [];
             if (res.data !== undefined) {
-                console.log(res.data.lstResult.length, "sdffe");
+
                 setLoader(false)
                 if (res.data.lstResult.length !== 0) {
 
                     for (let i = 0; i < res.data.lstResult.length; i++) {
                         tempdata.push({
-                            name: res.data.lstResult[i][props.state.columnName] ? res.data.lstResult[i][props.state.columnName] : 'null'
+                            name: res.data.lstResult[i][props.state.columnName].toLowerCase() ? res.data.lstResult[i][props.state.columnName].toLowerCase() : 'null'
                             , value: res.data.lstResult[i]['NetWeight']
                         })
-                        name.push(res.data.lstResult[i][props.state.columnName] ? res.data.lstResult[i][props.state.columnName] : 'null');
+                        name.push(res.data.lstResult[i][props.state.columnName] ? res.data.lstResult[i][props.state.columnName].toLowerCase() : 'null');
                         weg.push(res.data.lstResult[i]['NetWeight']);
                         id1.push(res.data.lstResult[i][props.state.columnID]);
                         tempprc.push(res.data.lstResult[i]['Prc']);
@@ -109,7 +109,7 @@ export default function Main_chart(props) {
                     setweight(weg);
                     setId(id1)
                     setdata(tempdata)
-                    console.log(tempdata, "sdffe");
+                   
                     setdataLoader(false)
 
                 } else {
@@ -209,6 +209,15 @@ export default function Main_chart(props) {
         }
     }
 
+    function dividedata(len_of_data, per) {
+        if (len_of_data <= 14) {
+            console.log(parseInt(per),"answer");
+            percentage = parseInt(per)
+        } else {
+            dividedata(parseInt(len_of_data/2), parseInt(per/2))
+        }
+    }
+
     async function fetchSortData() {
         var inputForSort = { ...input, 'SortByLabel': props.state.columnName, 'SortBy': flagSort, ['Grouping']: props.state.grouping }
 
@@ -244,6 +253,7 @@ export default function Main_chart(props) {
     } else {
         sliderbol = true
     }
+    dividedata(name.length, 100)
     let barHorizontal = {
         themeId: contextData.ThemeIndex,
         charttype: 'round-horizontal-bar',
@@ -257,11 +267,14 @@ export default function Main_chart(props) {
         idlst: id,
         divname: 'flip-card-back',
         sliderflag: sliderbol,
-        datazoomlst: [0, 100, 0, 50],
-        prclst:prc
-
+        datazoomlst: [0, 100, 0, percentage],
+        prclst:prc,
+        tooltip: {
+            formatter: '{b}<br> NetWeight - {c}',
+            confine: true
+        }
     }
-    console.log(props.state.filterKey, "key");
+
     let donutoption = {
         themeId: contextData.ThemeIndex,
         charttype: 'donut',
@@ -281,6 +294,10 @@ export default function Main_chart(props) {
                 fontSize: 20,
                 fontWeight: 'bold'
             }
+        },
+        tooltip: {
+            formatter: '{b}<br> NetWeight - {c}',
+            confine: true
         }
     }
     let updatedstate = {}
@@ -293,13 +310,14 @@ export default function Main_chart(props) {
     function divonclick() {
         if (updatedstate.filtername !== undefined) {
             contextData.setdefaultchartFilterName(updatedstate.filtername)
+            contextData.setdefaultchartValue(updatedstate.filtervalue)
         }
         contextData.setDefaultChart({ ...contextData.defaultchart, [props.state.filterKey]: updatedstate[props.state.filterKey] })
     }
 
     return (
         <div>
-            {console.log(loader, "sdsdweerfwer")}
+
             <div class="title-top-graphdetail">
                 <h5>
                     {componentName}

@@ -93,7 +93,7 @@ export default function MinimumStockHeader() {
     
         if (Findex !== "undefined" && Findex !== 0) {
             for (let index = Findex + 1; index < 5; index++) {
-                console.log(dependentfilter[index][0],"asd");
+
                 if (contexData.tempstate[dependentfilter[index][0]].length > 0) {
                     FetchDataDependentAPI(FilterData, index)
                 }
@@ -374,10 +374,10 @@ export default function MinimumStockHeader() {
 
     //Description : It's handle the common modal props and send the value into the comman modal and open it when input is clicked
     function HandleOnClickComman(IndexNo) {
-        console.log(contexData.tempstate,"keyone");
+
         let myvalue = contexData.tempstate[dependentfilter[IndexNo][0]];
         let myvalueName = contexData.tempstate[dependentfilter[IndexNo][4]];
-        console.log(myvalue,"qw");
+
         let demoo = [];
         let demooName = [];
         demoo.push(myvalue.split(","));
@@ -1102,7 +1102,7 @@ export default function MinimumStockHeader() {
                             >
                                 Apply
                             </button>
-                            <div class="form-check checkbox-filter">
+                            {/* <div class="form-check checkbox-filter">
 
                                 <input
                                     class="form-check-input"
@@ -1118,7 +1118,7 @@ export default function MinimumStockHeader() {
                                 >
                                     (% Set as Default)
                                 </label>
-                            </div>
+                            </div> */}
                         </Modal.Footer>
                     </Modal>
                 )

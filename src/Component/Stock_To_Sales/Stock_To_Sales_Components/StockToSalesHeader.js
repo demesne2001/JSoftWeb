@@ -93,7 +93,7 @@ export default function StockToSalesHeader() {
 
         if (Findex !== "undefined" && Findex !== 0) {
             for (let index = Findex + 1; index < 5; index++) {
-                console.log(contexData.tempstate[dependentfilter[index][0]], "asd");
+
                 if (contexData.tempstate[dependentfilter[index][0]].length > 0) {
                     FetchDataDependentAPI(FilterData, index)
                 }
@@ -374,10 +374,10 @@ export default function StockToSalesHeader() {
 
     //Description : It's handle the common modal props and send the value into the comman modal and open it when input is clicked
     function HandleOnClickComman(IndexNo) {
-        console.log(contexData.tempstate, "keyone");
+
         let myvalue = contexData.tempstate[dependentfilter[IndexNo][0]];
         let myvalueName = contexData.tempstate[dependentfilter[IndexNo][4]];
-        console.log(myvalue, "qw");
+
         let demoo = [];
         let demooName = [];
         demoo.push(myvalue.split(","));
@@ -432,14 +432,12 @@ export default function StockToSalesHeader() {
     //Description : It's handle the reset filter functionality
     function handleOnReset() {
         contexData.SettempState(postData);
-        FilterData = contexData.tempstate
+        FilterData = postData
         metaltypeRef.current.clearValue()
-        console.log(unitRef.current,"asdfzsdfsdf");
-        unitRef.current.setValue({ value: 'W', label: 'NET WEIGHT' })
+        unitRef.current.clearValue()
+        // unitRef.current.setValue({ value: 'W', label: 'NET WEIGHT' })
         setDefaultMetalType([])
-        setDefaultUnit({ value: 'W', label: 'NET WEIGHT' })
     }
-
     //Description : It's handle the Apply filter functionality
     function handleApplyFilter() {
         if (JSON.stringify(contexData.state) !== JSON.stringify(FilterData)) {
@@ -1091,7 +1089,7 @@ export default function StockToSalesHeader() {
                             >
                                 Apply
                             </button>
-                            <div class="form-check checkbox-filter">
+                            {/* <div class="form-check checkbox-filter">
 
                                 <input
                                     class="form-check-input"
@@ -1107,7 +1105,7 @@ export default function StockToSalesHeader() {
                                 >
                                     (% Set as Default)
                                 </label>
-                            </div>
+                            </div> */}
                         </Modal.Footer>
                     </Modal>
                 )

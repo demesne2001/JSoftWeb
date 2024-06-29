@@ -45,7 +45,7 @@ export default function Default_chart(props) {
         if (props.graph !== '' && props.graph.group !== undefined) {
             // setflagSort('wt-desc')
             fetchData()
-            console.log(props, "changed");
+
 
         }
     }, [props])
@@ -57,7 +57,7 @@ export default function Default_chart(props) {
 
     useEffect(() => {
         // setflagSort('wt-desc')
-        console.log(input, "changed");
+
         fetchData()
     }, [input])
 
@@ -69,7 +69,7 @@ export default function Default_chart(props) {
             input = { ...input, ['Grouping']: props.graph.group, ['SortByLabel']: props.graph.column, ['FromDate']: props.Date.FromDate, ['ToDate']: props.Date.ToDate };
 
 
-            console.log(input, "ggg");
+
             await post(input, API.CommonChart, {}, "post").then((res) => {
 
 
@@ -82,7 +82,7 @@ export default function Default_chart(props) {
                         for (let i = 0; i < res.data.lstResult.length; i++) {
                             if (res.data.lstResult[i][props.graph.column] !== null) {
 
-                                name.push(res.data.lstResult[i][props.graph.column]);
+                                name.push(res.data.lstResult[i][props.graph.column].toLowerCase());
                                 weg.push(res.data.lstResult[i]['NetWeight']);
                                 id1.push(res.data.lstResult[i][props.graph.columnID]);
                             }
@@ -153,7 +153,7 @@ export default function Default_chart(props) {
 
     async function fetchSortData() {
         var inputForSort = { ...input, 'SortByLabel': props.graph.column, 'SortBy': flagSort, ['Grouping']: props.graph.group }
-        console.log(inputForSort, "dfdf");
+
         await post(inputForSort, API.CommonChart, {}, "post").then((res) => {
 
 
@@ -167,7 +167,7 @@ export default function Default_chart(props) {
                     let tempprc = [];
                     for (let i = 0; i < res.data.lstResult.length; i++) {
                         if (res.data.lstResult[i][props.graph.column] !== null) {
-                            name.push(res.data.lstResult[i][props.graph.column]);
+                            name.push(res.data.lstResult[i][props.graph.column].toLowerCase());
                             weg.push(res.data.lstResult[i]['NetWeight']);
                             id1.push(res.data.lstResult[i][props.graph.columnID]);
                         }
@@ -210,22 +210,27 @@ export default function Default_chart(props) {
         divname: 'topimg-gd',
         sliderflag: sliderbol,
         datazoomlst: [0, 100, 0, 50],
-        prclst:prc
+        prclst: prc,
+        tooltip: {
+            formatter: '{b}<br> NetWeight - {c}',
+            confine: true
+        }
     }
     let updatedstate = (<AlphaDashChart obj={JSON.parse(JSON.stringify(barHorizontal))} state={contextData.chartImage} />).props.state
-    console.log(props.graph.filter_key1, props.graph.filter_key2);
+
     function divonclick() {
         if (updatedstate.filtername !== undefined) {
-            console.log(updatedstate.filtername, "wesdsd");
+
             let filtername = updatedstate.filtername
             contextData.settagImageFilterName(filtername);
+            contextData.settagImageValue(updatedstate.filtervalue);
         }
         contextData.setchartImage({ ...defaultImageData, [props.graph.filter_key1]: contextData.defaultchart[props.graph.filter_key1], [props.graph.filter_key2]: updatedstate[props.graph.filter_key2] })
     }
     return (
         <div>
             <div class="title-top-graphdetail-withoutcolor">
-                <h5>{props.graph.componentName}  {filtername !== "" ? "( " + filtername + " )" : null}</h5>
+                <h5>{props.graph.componentName}  <div>{filtername !== "" ? "( " + filtername + ", NetWeight - "+ contextData.defaultchartValue + " )" : null}</div></h5>
                 <i className="fa-solid fa-arrow-down-short-wide sort-icon-second-screen" onClick={handleSorting} ></i>
             </div>
             <div id="sorticonsecondScreenDefault" className="dropdown-contenticon-second-screen" onClick={handleclickSort}>

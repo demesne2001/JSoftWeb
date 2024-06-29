@@ -9,7 +9,7 @@ export default function AvarageTimeSpentSecondScreen(xAxis, yAxis, contextData, 
       height: 350,
       events: {
         dataPointSelection: (event, chartContex, config) => {
-          console.log("confifff",config);
+
           if (id[config.dataPointIndex] === null) {
             contextData.SetdetailedState({ ...contextData.detailedstate, ['TravellingTeamID']: '-' })
           }

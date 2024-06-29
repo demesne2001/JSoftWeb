@@ -10,26 +10,26 @@ export function secondScreen_hbar(name, contexData, id, filterKey) {
             height: 350,
             events: {
                 dataPointSelection: (event, chartContex, config) => {
-                    console.log(config,"nameqwewe");
+
                     // contexData.setDefaultChart({...contexData.defaultchart,["strBranch"] : config.w.config.xaxis.categories[config.dataPointIndex] })
                     if (filterKey === 'strMonth') {
                         if (id[config.dataPointIndex] === null) {
-                            // console.log(id[config.dataPointIndex], "idselect");
+
 
                             contexData.setDefaultChart({ ...contexData.defaultchart, [filterKey]: '-' })
                         }
                         else {
-                            console.log( getMonthNumberFromName(id[config.dataPointIndex]),"ananana");
+
                             contexData.setDefaultChart({ ...contexData.defaultchart, [filterKey]: getMonthNumberFromName(id[config.dataPointIndex]).toString() })
                             contexData.setdefaultchartFilterName(name[config.dataPointIndex]);
                         }
                     } else {
                         if (id[config.dataPointIndex] === null) {
-                            // console.log(id[config.dataPointIndex], "idselect");
+
                             contexData.setDefaultChart({ ...contexData.defaultchart, [filterKey]: '-' })
                         }
                         else {
-                            console.log(config,"nameqwewe");
+
                             contexData.setDefaultChart({ ...contexData.defaultchart, [filterKey]: id[config.dataPointIndex].toString() })
                             contexData.setdefaultchartFilterName(name[config.dataPointIndex]);
                         }

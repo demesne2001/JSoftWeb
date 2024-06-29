@@ -107,7 +107,7 @@ export default function TargetAndAchievedDetailScreenChart(xAxis, yAxis, context
     //         y: {
     //             formatter: function (val, config) {
     //                 if (config['seriesIndex'] === 2) {
-    //                     console.log(val);
+
     //                     return (val.toFixed(0)).toString() + "%"
     //                 } else {
     //                     return (val).toString() + " " + unit
@@ -232,7 +232,7 @@ export default function TargetAndAchievedDetailScreenChart(xAxis, yAxis, context
             y: {
                 formatter: function (val, config) {
                     if (config['seriesIndex'] === 2 && val !== undefined) {
-                        console.log(val);
+
                         return (val).toString() + "%"
                     } else {
                         if (val !== undefined) {

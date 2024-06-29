@@ -40,7 +40,12 @@ export default function MonthWise() {
     Xaxis: name,
     color: ['#00FFD7', '#FFD700', '#D700FF'],
     Yaxis: weight,
-    prclst:prc
+    prclst:prc,
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
 
   let optionarea = {
@@ -51,22 +56,32 @@ export default function MonthWise() {
     chartId: 'MonthWise',
     Xaxis: name,
     Yaxis: weight,
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
   let radialdata = {
     themeId: localStorage.getItem("ThemeIndex"),
     charttype: 'polar-radialbar',
     height: '100%',
     width: '100%',
-    chartId: 'MonthWise Wise',
+    chartId: 'MonthWise',
     radiusAxis: name,
     seriesdata: weight,
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
   let optiondonut = {
     themeId: localStorage.getItem("ThemeIndex"),
     charttype: 'donut',
     height: '100%',
     width: '100%',
-    chartId: 'MonthWise Wise',
+    chartId: 'MonthWise',
     propdata: data,
     radius: [10, 150],
     label:  {
@@ -79,8 +94,12 @@ export default function MonthWise() {
 			  fontSize: 20,
 			  fontWeight: 'bold'
 			}
+		},
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
 		}
-
   }
 
   let optionpie = {
@@ -96,6 +115,11 @@ export default function MonthWise() {
       color: 'white',
       fontWeight: 'bold',
     },
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
   let optradialbar = {
     themeId: localStorage.getItem("ThemeIndex"),
@@ -116,6 +140,11 @@ export default function MonthWise() {
 			  fontSize: 20,
 			  fontWeight: 'bold'
 			}
+		},
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
 		}
   }
   let optionPolar = {
@@ -126,6 +155,11 @@ export default function MonthWise() {
     chartId: 'MonthWise',
     propdata: data,
     radius: [10, 110],
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
   var series = [{
     name: 'weight',

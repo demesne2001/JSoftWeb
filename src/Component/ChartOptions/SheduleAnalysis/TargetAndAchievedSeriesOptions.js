@@ -124,7 +124,7 @@ export default function TargetAndAchievedSeriesOptions(xAxis, yAxis, unit) {
             y: {
                 formatter: function (val, config) {
                     if (config['seriesIndex'] === 2 && val !== undefined) {
-                        console.log(val);
+
                         return (val).toString() + "%"
                     } else {
                         if (val !== undefined) {

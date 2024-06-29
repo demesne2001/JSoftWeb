@@ -36,26 +36,36 @@ export default function YearWise() {
 		charttype: 'bar',
 		height: '400%',
 		width: '100%',
-		chartId: 'yearwise',
+		chartId: 'YearWise',
 		Xaxis: name,
 		Yaxis: weight,
-		prclst:prc
+		prclst: prc,
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine: true
+		}
 	}
 	let radialdata = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		charttype: 'polar-radialbar',
 		height: '100%',
 		width: '100%',
-		chartId: 'yearwise1',
+		chartId: 'YearWise',
 		radiusAxis: name,
 		seriesdata: weight,
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine: true
+		}
 	}
 	let optiondonut = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		charttype: 'donut',
 		height: '100%',
 		width: '100%',
-		chartId: 'yearwise2',
+		chartId: 'YearWise',
 		propdata: data,
 		radius: [10, 150],
 		label: {
@@ -68,6 +78,11 @@ export default function YearWise() {
 				fontSize: 20,
 				fontWeight: 'bold'
 			}
+		},
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine: true
 		}
 
 	}
@@ -78,20 +93,25 @@ export default function YearWise() {
 		height: '100%',
 		width: '100%',
 		propdata: data,
-		chartId: 'yearwise3',
+		chartId: 'YearWise',
 		label: {
 			position: 'inside',
 			formatter: '{d}%',
 			color: 'white',
 			fontWeight: 'bold',
 		},
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine: true
+		}
 	}
 	let optradialbar = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		charttype: 'semi-donut',
 		height: '100%',
 		width: '100%',
-		chartId: 'yearwise4',
+		chartId: 'YearWise',
 		propdata: data,
 		position: 'center',
 		fontsize: 20,
@@ -105,6 +125,11 @@ export default function YearWise() {
 				fontSize: 20,
 				fontWeight: 'bold'
 			}
+		},
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine: true
 		}
 	}
 	let optionPolar = {
@@ -112,9 +137,14 @@ export default function YearWise() {
 		charttype: 'pie',
 		height: '100%',
 		width: '100%',
-		chartId: 'yearwise6',
+		chartId: 'YearWise',
 		propdata: data,
 		radius: [10, 110],
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine: true
+		}
 	}
 	function handleclick(e) {
 
@@ -202,7 +232,7 @@ export default function YearWise() {
 	}
 
 	function handleNavigation() {
-		navigate('/graph-detail', { state: { grouping: "M.FinYearID,m.YearCode", columnName: "YearCode", columnID: "FinYearID", componentName: "Year Wise", chartId: 15 , FromDate: inputdata.FromDate, ToDate : inputdata.ToDate}, replace: true })
+		navigate('/graph-detail', { state: { grouping: "M.FinYearID,m.YearCode", columnName: "YearCode", columnID: "FinYearID", componentName: "Year Wise", chartId: 15, FromDate: inputdata.FromDate, ToDate: inputdata.ToDate }, replace: true })
 	}
 
 	document.getElementById("root").addEventListener("click", function (event) {

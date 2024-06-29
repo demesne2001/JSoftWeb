@@ -34,26 +34,36 @@ export default function ModeofSalesWise() {
     charttype: 'bar',
     height: '400%',
     width: '100%',
-    chartId: 'modeofsales2',
+    chartId: 'ModeOfSalesWise',
     Xaxis: name,
     Yaxis: weight,
-    prclst:prc
+    prclst:prc,
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true 
+		}
   }
   let radialdata = {
     themeId: localStorage.getItem("ThemeIndex"),
     charttype: 'polar-radialbar',
     height: '100%',
     width: '100%',
-    chartId: 'modeofsales3',
+    chartId: 'ModeOfSalesWise',
     radiusAxis: name,
     seriesdata: weight,
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
   let optiondonut = {
     themeId: localStorage.getItem("ThemeIndex"),
     charttype: 'donut',
     height: '100%',
     width: '100%',
-    chartId: 'modeofsales4',
+    chartId: 'ModeOfSalesWise',
     propdata: data,
     radius: [10, 150],
     label: {
@@ -66,7 +76,12 @@ export default function ModeofSalesWise() {
         fontSize: 20,
         fontWeight: 'bold'
       }
-    }
+    },
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
 
   }
 
@@ -76,20 +91,25 @@ export default function ModeofSalesWise() {
     height: '100%',
     width: '100%',
     propdata: data,
-    chartId: 'modeofsales1',
+    chartId: 'ModeOfSalesWise',
     label: {
       position: 'inside',
       formatter: '{d}%',
       color: 'white',
       fontWeight: 'bold',
     },
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
   let optradialbar = {
     themeId: localStorage.getItem("ThemeIndex"),
     charttype: 'semi-donut',
     height: '100%',
     width: '100%',
-    chartId: 'modeofsales5123456',
+    chartId: 'ModeOfSalesWise',
     propdata: data,
     position: 'center',
     fontsize: 20,
@@ -103,23 +123,33 @@ export default function ModeofSalesWise() {
         fontSize: 20,
         fontWeight: 'bold'
       }
-    }
+    },
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
   let optionPolar = {
     themeId: localStorage.getItem("ThemeIndex"),
     charttype: 'pie',
     height: '100%',
     width: '100%',
-    chartId: 'modeofsales16',
+    chartId: 'ModeOfSalesWise',
     propdata: data,
     radius: [10, 110],
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
-console.log(optionPolar, 'aaa')
+
 
   useEffect(() => {
     fetchOption()
     getdata()
-    console.log(inputdata.column, "sdsdsss");
+
   }, [inputdata])
 
   useEffect(() => {

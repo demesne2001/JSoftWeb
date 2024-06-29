@@ -19,12 +19,12 @@ export default function CommanSheduleCard(props) {
 
   function getCardData() {
     inputdata = { ...inputdata, 'Mode': props.id };
-    console.log(inputdata,"awsegyqtwf");
+
     post(inputdata, API.scheduleGetcommonCard, {}, "post").then((res) => {
       if (res.data !== undefined) {
 
         setChartData(res.data.lstResult);
-        console.log(res.data.lstResult,"dsarwer");
+
       } else {
         alert(res.Error)
       }

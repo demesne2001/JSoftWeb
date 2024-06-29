@@ -18,6 +18,10 @@ export default function StockToSalesDefaultChart(props) {
     const [flag, setflag] = useState('bar');
     const [flagSort, setflagSort] = useState('AvgStockCycleNtWt Desc');
     const [countforflag, setcountforflag] = useState(0)
+    const [datashow, setDatashow] = useState(11);
+
+    let percentage;
+    let percentageVertical;
     let optionMultiBar = {}
     let optionBar = {}
     let optionHorizontalBar = {}
@@ -28,14 +32,14 @@ export default function StockToSalesDefaultChart(props) {
         if (props.state.ChartMode !== undefined && props.state.ChartMode !== null) {
             getChartData()
         }
-        console.log("api calleddd", props.state);
+
     }, [props])
 
     useEffect(() => {
         if (props.state.ChartMode !== undefined && props.state.ChartMode !== null) {
             getChartData()
         }
-        console.log("api calleddd11", inputdata);
+
     }, [inputdata])
 
     useEffect(() => {
@@ -44,16 +48,20 @@ export default function StockToSalesDefaultChart(props) {
         }
     }, [flagSort])
 
+    useEffect(() => {
+        setDatashowOnDivWidth()
+    }, [])
+
 
 
     function getChartData() {
-        console.log(props);
+
         inputdata = { ...inputdata, 'Mode': props.state.ChartMode, 'FromDate': props.state.FromDate, 'ToDate': props.state.ToDate }
-        console.log(inputdata, "api default");
+
         post(inputdata, API.GetStockToSalesChart, {}, "post").then((res) => {
             if (res.data !== undefined) {
                 if (res.data.lstResult.length > 0) {
-                    console.log(res.data.lstResult, "main data");
+
                     var tempYaxis = [];
                     for (let i = 0; i < StockToSalesChartObject[props.state.ChartMode]['yAxis'].length; i++) {
                         var tempYaxis1 = [];
@@ -112,6 +120,39 @@ export default function StockToSalesDefaultChart(props) {
             return [((parseInt((parseInt(Math.max(...ansmax).toFixed(0)) + 1) / Math.pow(10, lenthdigit)) + 1)) * (Math.pow(10, lenthdigit)), parseInt(Math.min(...ansmin).toFixed(0)) + 1]
         }
     }
+
+    function setDatashowOnDivWidth() {
+        setTimeout(() => {
+            if (document.getElementsByClassName('detailstocktosales')[0].clientWidth < 902 && document.getElementsByClassName('detailstocktosales')[0].clientWidth > 450) {
+                setDatashow(5)
+            } else if (document.getElementsByClassName('detailstocktosales')[0].clientWidth <= 450) {
+                setDatashow(3)
+            } else {
+                setDatashow(11)
+            }
+        }, 1000);
+    }
+
+    function divideHorizontalData(len_of_data, per) {
+        if (len_of_data <= 5) {
+            console.log(parseInt(per), "answer");
+            percentage = parseInt(per)
+        } else {
+            divideHorizontalData(parseInt(len_of_data / 2), parseInt(per / 2))
+        }
+    }
+
+    function divideVerticalData(len_of_data, per) {
+        if (len_of_data <= datashow) {
+            console.log(parseInt(per), "answer");
+            percentageVertical = parseInt(per)
+        } else {
+            divideVerticalData(parseInt(len_of_data / 2), parseInt(per / 2))
+        }
+    }
+
+    divideHorizontalData(xAxis.length, 100)
+    divideVerticalData(xAxis.length, 100)
     if (document.getElementsByClassName('graphdetailcards graphdetail-secondcard')[0] !== undefined) {
         let tempYAxis = yAxis;
         if (tempYAxis.length > 3) {
@@ -126,7 +167,7 @@ export default function StockToSalesDefaultChart(props) {
         if (props.state.ChartMode === '1') {
             optionMultiBar = {
                 themeId: 11,
-                chartId: 'inside-Barydwudsd' + props.state.ChartMode,
+                chartId: 'StockToSales_Detailed' + props.state.ChartMode,
                 charttype: 'inside-Bar',
                 height: '600%',
                 width: '100%',
@@ -142,13 +183,14 @@ export default function StockToSalesDefaultChart(props) {
                 barnum: 2,
                 divname: 'graphdetailcards graphdetail-secondcard',
                 sliderflag: sliderbol,
-                datazoomlst: [0, 50, 0, 100],
+                datazoomlst: [0, percentageVertical, 0, 100],
+                filtervalueindex:2
             }
 
         } else {
             optionMultiBar = {
                 themeId: 11,
-                chartId: 'inside-Barsdwayudsd' + props.state.ChartMode,
+                chartId: 'StockToSales_Detailed' + props.state.ChartMode,
                 charttype: 'inside-Bar',
                 height: '600%',
                 width: '100%',
@@ -164,7 +206,8 @@ export default function StockToSalesDefaultChart(props) {
                 barnum: 2,
                 divname: 'graphdetailcards graphdetail-secondcard',
                 sliderflag: sliderbol,
-                datazoomlst: [0, 50, 0, 100],
+                datazoomlst: [0, percentageVertical, 0, 100],
+                filtervalueindex:2
             }
 
         }
@@ -173,13 +216,13 @@ export default function StockToSalesDefaultChart(props) {
             charttype: 'round-horizontal-bar',
             height: '600%',
             width: '100%',
-            chartId: 'MinimumStocks1' + props.state.ChartMode,
+            chartId: 'StockToSales_Detailed' + props.state.ChartMode,
             Xaxis: xAxis,
             color: ['#0073b0', '#caf77d', '#8bd9e8', '#c4e8f0'],
             Yaxis: tempYAxis[2],
             divname: 'graphdetailcards graphdetail-secondcard',
             sliderflag: sliderbol,
-            datazoomlst: [0, 100, 0, 50],
+            datazoomlst: [0, 100, 0, percentage],
             tooltip:{
                 formatter:'{b}<br>AvgStockCycleNtWt - {c}'
             }
@@ -189,12 +232,12 @@ export default function StockToSalesDefaultChart(props) {
             charttype: 'roundbar',
             height: document.getElementsByClassName('graphdetailcards graphdetail-secondcard')[0].clientHeight - 30,
             width: document.getElementsByClassName('graphdetailcards graphdetail-secondcard')[0].clientWidth - 30,
-            chartId: 'MinimumStockwiseBar' + props.state.ChartMode,
+            chartId: 'StockToSales_Detailed' + props.state.ChartMode,
             Xaxis: xAxis,
             Yaxis: tempYAxis[2],
             divname: 'graphdetailcards graphdetail-secondcard',
             sliderflag: sliderbol,
-            datazoomlst: [0, 50, 0, 100],
+            datazoomlst: [0, percentageVertical, 0, 100],
             tooltip:{
                 formatter:'{b}<br>AvgStockCycleNtWt - {c}'
             }
@@ -203,7 +246,7 @@ export default function StockToSalesDefaultChart(props) {
             themeId: 11,
             height: '350%',
             width: '100%',
-            chartId: 'Minimumsrtocksline' + props.state.ChartMode,
+            chartId: 'StockToSales_Detailed' + props.state.ChartMode,
             charttype: 'cartesian-point',
             Xaxis: xAxis,
             Yaxis: tempYAxis[2],
@@ -262,7 +305,7 @@ export default function StockToSalesDefaultChart(props) {
 
     function getSortChartData() {
         inputdata = { ...inputdata, 'Mode': props.state.ChartMode, "sort": flagSort }
-        console.log(inputdata, "wewqeqwqeqwewqe");
+
         post(inputdata, API.GetStockToSalesChart, {}, "post").then((res) => {
             if (res.data !== undefined) {
                 var tempYaxis = [];
@@ -306,7 +349,7 @@ export default function StockToSalesDefaultChart(props) {
         <div>
             <div class="title-top-graphdetail-withoutcolor">
                 <h5>
-                    {props.state.componentName} <span style={{ fontSize: '15px' }}> {contextData.filtername !== "" ? "( " + contextData.filtername + " )" : null}</span>
+                    {props.state.componentName} <span style={{ fontSize: '15px' }}> {contextData.filtername !== "" ? "( " + contextData.filtername + ", AvgStockCycleNtWt - " + contextData.filtervalue + " )" : null}</span>
 
                     <div className='d-flex MinimumstockIcons'>
                         <div className='dropbtngraph'>

@@ -52,7 +52,7 @@ export default function SheduleClientDetailsSeriesOptions(xAxis, yAxis) {
   //         show: true,
   //       },
   //       formatter: function (val, config) {
-  //         console.log(config['dataPointIndex']);
+
   //         return "TotalParty : " + yAxis[0][config['dataPointIndex']].toString() + "<br/>VistedParty : " + yAxis[1][config['dataPointIndex']].toString() + "<br/>Prc : " + yAxis[2][config['dataPointIndex']].toString() + "%"
 
   //       },
@@ -129,7 +129,7 @@ export default function SheduleClientDetailsSeriesOptions(xAxis, yAxis) {
     width: '100%',
     legend: ['TargetParty', 'VisitedParty', 'SeenParty', 'SoldParty', 'Prc'],
     color: ['#46a5dd','#2c4b6a', '#c3d5ff','#1563e6','#c8d6f7'],
-    widthlst: [35, 25, 15, 10],
+    widthlst: [35, 20, 15, 10],
     Xaxis: xAxis,
     Yaxis: yAxis,
     // idkey: 'strmonth',
@@ -140,7 +140,8 @@ export default function SheduleClientDetailsSeriesOptions(xAxis, yAxis) {
     minval: findMinMax()[1],
     barnum: 4,
     divname: 'crancy-progress-card card-contain-graph',
-    tooltipid: 4
+    tooltipid: 4,
+    filtervalueindex:0
   }
   return [option]
 }

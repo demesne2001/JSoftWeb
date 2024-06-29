@@ -34,6 +34,11 @@ export default function BranchWise() {
 		chartId: 'BranchWise',
 		radiusAxis: name,
 		seriesdata: weight,
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc' ? '%' : ""}`,
+			confine: true
+		}
 	}
 
 	let optiondonut = {
@@ -54,6 +59,11 @@ export default function BranchWise() {
 				fontSize: 20,
 				fontWeight: 'bold'
 			}
+		},
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc' ? '%' : ""}`,
+			confine: true
 		}
 	}
 
@@ -63,20 +73,25 @@ export default function BranchWise() {
 		height: '100%',
 		width: '100%',
 		propdata: data,
-		chartId: 'PieChartBranchwise',
+		chartId: 'BranchWise',
 		label: {
 			position: 'inside',
 			formatter: '{d}%',
 			color: 'white',
 			fontWeight: 'bold',
 		},
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc' ? '%' : ""}`,
+			confine: true
+		}
 	}
 	let optradialbar = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		charttype: 'semi-donut',
 		height: '100%',
 		width: '100%',
-		chartId: 'RadialBarchart',
+		chartId: 'BranchWise',
 		propdata: data,
 		label: {
 			show: false,
@@ -88,6 +103,11 @@ export default function BranchWise() {
 				fontSize: 20,
 				fontWeight: 'bold'
 			}
+		},
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc' ? '%' : ""}`,
+			confine: true
 		}
 	}
 
@@ -96,12 +116,17 @@ export default function BranchWise() {
 		charttype: 'round-horizontal-bar',
 		height: '100%',
 		width: '100%',
-		chartId: 'City Wise',
+		chartId: 'BranchWise',
 		Xaxis: name,
 		Yaxis: weight,
 		color: ['#0073b0', '#caf77d', '#8bd9e8', '#c4e8f0'],
 		divname: 'crancy-progress-card card-contain-graph',
-		prclst:prc
+		prclst: prc,
+		tooltip: {
+			formatter: `{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc' ? '%' : ""}`,
+			confine: true
+		}
 	}
 
 	useEffect(() => {
@@ -160,7 +185,7 @@ export default function BranchWise() {
 						sale.push(js)
 						tempprc.push(res.data.lstResult[index]['Prc'])
 					}
-					console.log("weight", weight1)
+
 					setName(name1)
 					setweight(weight1)
 					setdata(data);
@@ -229,6 +254,7 @@ export default function BranchWise() {
 			})
 	}
 
+
 	function handleonchangeCurrency() {
 		document.getElementById("myDropdowniconbranch").style.display === "block" ? document.getElementById("myDropdowniconbranch").style.display = "none" : document.getElementById("myDropdowniconbranch").style.display = "block";
 		const tag_array = document.getElementsByClassName('dropdown-contenticon')
@@ -244,7 +270,7 @@ export default function BranchWise() {
 	}
 
 	function handleNavigation() {
-		navigate('/graph-detail', { state: { grouping: "a.BranchID,b.BranchName", columnID: 'BranchID', columnName: 'BranchName', componentName: "Branch Wise", filterKey: "strBranch", chartId: 1, FromDate: inputdata.FromDate, ToDate : inputdata.ToDate }, replace: true })
+		navigate('/graph-detail', { state: { grouping: "a.BranchID,b.BranchName", columnID: 'BranchID', columnName: 'BranchName', componentName: "Branch Wise", filterKey: "strBranch", chartId: 1, FromDate: inputdata.FromDate, ToDate: inputdata.ToDate }, replace: true })
 	}
 
 	document.getElementById("root").addEventListener("click", function (event) {
@@ -333,7 +359,7 @@ export default function BranchWise() {
 			<div className="graph-card">
 				<div className='card-title-graph'>
 
-					<div className="col-xs-8 col-sm-10 col-md-10 col-10" onClick={handleNavigation} >
+					<div className="col-xs-8 col-sm-10 col-md-10 col-10" id='chartnavbar' onClick={handleNavigation} >
 
 						<p><i class="fas fa-chart-pie"></i> Branch Wise</p>
 
@@ -342,7 +368,7 @@ export default function BranchWise() {
 					<div className="col-xs-4 col-sm-2 col-md-2 col-2" >
 						<div className='d-flex '>
 							<div className='dropbtngraph'>
-								<i className="fa-solid fa-arrow-down-short-wide sorticon" onClick={handleSorting} />
+								<i className="fa-solid fa-arrow-down-short-wide sorticon" id='sorticonfordatasorting' onClick={handleSorting} />
 							</div>
 							<div className='dropbtngraph'>
 								<i class="fa-solid fa-ellipsis-vertical" id='icon_drop' onClick={handleonchangeCurrency} />

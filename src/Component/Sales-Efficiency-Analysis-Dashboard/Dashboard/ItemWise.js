@@ -40,18 +40,28 @@ export default function ItemWise() {
 		chartId: 'ItemWise',
 		Xaxis: name,
 		Yaxis: weight,
-		prclst:prc
+		prclst:prc,
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`  ,
+			confine:true
+		}
 	}
 	var barHorizontal = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		charttype: 'round-horizontal-bar',
 		height: '100%',
 		width: '100%',
-		chartId: 'ItemWise 123',
+		chartId: 'ItemWise',
 		Xaxis: name,
 		Yaxis: weight,
 		divname: 'crancy-progress-card card-contain-graph',
-		prclst:prc
+		prclst:prc,
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true 
+		}
 	}
 	let radialdata = {
 		themeId: localStorage.getItem("ThemeIndex"),
@@ -61,6 +71,11 @@ export default function ItemWise() {
 		chartId: 'ItemWise',
 		radiusAxis: name,
 		seriesdata: weight,
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true  
+		}
 	}
 	let optiondonut = {
 		themeId: localStorage.getItem("ThemeIndex"),
@@ -80,6 +95,11 @@ export default function ItemWise() {
 				fontSize: 20,
 				fontWeight: 'bold'
 			}
+		},
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true  
 		}
 
 	}
@@ -89,20 +109,25 @@ export default function ItemWise() {
 		height: '100%',
 		width: '100%',
 		propdata: data,
-		chartId: 'PieChartItemWise',
+		chartId: 'ItemWise',
 		label: {
 			position: 'inside',
 			formatter: '{d}%',
 			color: 'white',
 			fontWeight: 'bold',
 		},
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true  
+		}
 	}
 	let optradialbar = {
 		themeId: localStorage.getItem("ThemeIndex"),
 		charttype: 'semi-donut',
 		height: '100%',
 		width: '100%',
-		chartId: 'RadialBarchartItemWise',
+		chartId: 'ItemWise',
 		propdata: data,
 		position: 'center',
 		fontsize: 20,
@@ -116,12 +141,13 @@ export default function ItemWise() {
 				fontSize: 20,
 				fontWeight: 'bold'
 			}
+		},
+		tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+			confine:true  
 		}
 	}
-	const series = [{
-		name: 'weight',
-		data: weight
-	}]
 
 	const navigate = useNavigate()
 

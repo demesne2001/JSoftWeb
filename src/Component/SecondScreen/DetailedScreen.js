@@ -307,7 +307,7 @@ export default function DetailedScreen() {
                                                             <Slider {...settings} >
                                                                 {
                                                                     sliderData.map((data) => {
-                                                                        console.log(data.group, mainChartProps.grouping,"compare")
+
                                                                         if (data.group === mainChartProps.grouping) {
 
                                                                         }
@@ -332,9 +332,9 @@ export default function DetailedScreen() {
                                                             </Slider>
                                                         </ul>
                                                     </div>
-                                                    <div class="crancy-featured-default-box">
+                                                    <div class="crancy-featured-default-box" >
                                                         <div class="crancy-featured-user__fcontent graphdetaildefault mb-0">
-                                                            <form class="form-check checkbox-filter">
+                                                            <form class="form-check checkbox-filter" id='checkboxofdetailscreen'>
                                                                 {/* <input class="form-check-input" type="checkbox" value="" id="DefaultCheckBoxSeconScreen" onClick={handleDefault} /> */}
                                                                 <input class="form-check-input" type="checkbox" value="" id="DefaultCheckBoxSeconScreen" onClick={addEditOption} />
                                                                 <label class="form-check-label checkbox-filter-label graphdetail-text" for="DefaultCheckBoxSeconScreen">Set as Default</label>

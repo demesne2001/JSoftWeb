@@ -51,7 +51,12 @@ export default function DesignCatalogueWise() {
     chartId: 'DesigncatlogWise',
     Xaxis: name,
     Yaxis: weight,
-    prclst:prc
+    prclst:prc,
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
 
   let radialdata = {
@@ -59,16 +64,21 @@ export default function DesignCatalogueWise() {
     charttype: 'polar-radialbar',
     height: '100%',
     width: '100%',
-    chartId: 'DesigncatlogWise radialdata',
+    chartId: 'DesigncatlogWise',
     radiusAxis: name,
     seriesdata: weight,
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
   let optiondonut = {
     themeId: localStorage.getItem("ThemeIndex"),
     charttype: 'donut',
     height: '100%',
     width: '100%',
-    chartId: 'DesigncatlogWise optiondonut',
+    chartId: 'DesigncatlogWise',
     propdata: data,
     radius: [10, 150],
     label: {
@@ -81,7 +91,12 @@ export default function DesignCatalogueWise() {
         fontSize: 20,
         fontWeight: 'bold'
       }
-    }
+    },
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
 
   }
 
@@ -91,20 +106,25 @@ export default function DesignCatalogueWise() {
     height: '100%',
     width: '100%',
     propdata: data,
-    chartId: 'DesigncatlogWise optionpie',
+    chartId: 'DesigncatlogWise',
     label: {
       position: 'inside',
       formatter: '{d}%',
       color: 'white',
       fontWeight: 'bold',
     },
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
+		}
   }
   let optradialbar = {
     themeId: localStorage.getItem("ThemeIndex"),
     charttype: 'semi-donut',
     height: '100%',
     width: '100%',
-    chartId: 'DesigncatlogWise optradialbar',
+    chartId: 'DesigncatlogWise',
     propdata: data,
     position: 'center',
     fontsize: 20,
@@ -118,6 +138,11 @@ export default function DesignCatalogueWise() {
 			  fontSize: 20,
 			  fontWeight: 'bold'
 			}
+		},
+    tooltip:{
+			formatter:`{b} <br> 
+ ${inputdata.column} - {c}${inputdata.column === 'Prc'?'%':""}`,
+      confine:true  
 		}
   }
 

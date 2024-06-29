@@ -4,7 +4,6 @@ import StockToSalesContext from '../contex/StockToSalesContext';
 import Navbar from '../Sales-Efficiency-Analysis-Dashboard/NavigationBar/Navbar';
 import StockToSalesHeader from './Stock_To_Sales_Components/StockToSalesHeader';
 import StockToSalesCharts from './Stock_To_Sales_Components/StockToSalesCharts';
-import Experiment from './Stock_To_Sales_Components/Experiment';
 
 export default function Stock_To_Sales_Dashboard() {
     const navigate = useNavigate();

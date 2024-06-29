@@ -17,7 +17,7 @@ export function secondScreen_donut(name, contexData, id, filterKey) {
                 dataPointSelection: (event, chartContex, config) => {
                     if (filterKey === 'strMonth') {
                         if (id[config.dataPointIndex] === null) {
-                            // console.log(id[config.dataPointIndex], "idselect");
+
 
                             contexData.setDefaultChart({ ...contexData.defaultchart, [filterKey]: '-' })
                         }else if (id[config.dataPointIndex].toString() === contexData.defaultchart[filterKey]) {
@@ -25,20 +25,20 @@ export function secondScreen_donut(name, contexData, id, filterKey) {
 
                         }
                         else {
-                            console.log();
+
                             contexData.setDefaultChart({ ...contexData.defaultchart, [filterKey]: getMonthNumberFromName(id[config.dataPointIndex]).toString() })
                             contexData.setdefaultchartFilterName(name[config.dataPointIndex]);
                         }
                     } else {
                         if (id[config.dataPointIndex] === null) {
-                            // console.log(id[config.dataPointIndex], "idselect");
+
 
                             contexData.setDefaultChart({ ...contexData.defaultchart, [filterKey]: '-' })
                         }else if (id[config.dataPointIndex].toString() === contexData.defaultchart[filterKey]) {
                             contexData.setDefaultChart({ ...contexData.defaultchart, [filterKey]: '' })
                         }
                         else {
-                            console.log();
+
                             contexData.setdefaultchartFilterName(name[config.dataPointIndex]);
                             contexData.setDefaultChart({ ...contexData.defaultchart, [filterKey]: id[config.dataPointIndex].toString() })
                         }

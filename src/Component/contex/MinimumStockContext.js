@@ -86,9 +86,11 @@ export default function MinimumStockContext(props) {
     const [LazyLoading, setLazyLoading] = useState(0);
     const [filtername, setfiltername] = useState("");
     const [filternamesubitemrange, setfilternamesubitemrange] = useState("");
+    const [filtervalue, setfiltervalue] = useState("");
+    const [filtervaluesubitemrange, setfiltervaluesubitemrange] = useState("");
     return (
 
-        <contex.Provider value={{filternamesubitemrange, setfilternamesubitemrange,setfiltername , filtername, detailTirdstate, SetDetailThirdState, SetDetailsecondState, detailsecondstate, detailstate, SetDetailState, setLazyLoading, LazyLoading, setflagExcel, flagExcel, state: state, SetState: SetState, childFilterShow, setchildFilterShow, tempstate, SettempState, currency, setcurrency, flag }}>
+        <contex.Provider value={{filtervalue, setfiltervalue, filtervaluesubitemrange, filternamesubitemrange, setfiltervaluesubitemrange, setfilternamesubitemrange,setfiltername , filtername, detailTirdstate, SetDetailThirdState, SetDetailsecondState, detailsecondstate, detailstate, SetDetailState, setLazyLoading, LazyLoading, setflagExcel, flagExcel, state: state, SetState: SetState, childFilterShow, setchildFilterShow, tempstate, SettempState, currency, setcurrency, flag }}>
 
             {props.children}
 

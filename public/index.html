@@ -5,9 +5,11 @@
     <link rel="icon" href="%PUBLIC_URL%/Jsoft.png" />
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1" /> -->
 
-    <meta name="description" content="#">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <meta name="description" content="#" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
     <meta name="theme-color" content="#000000" />
     <meta
@@ -73,6 +75,62 @@
 
     <!-- top slider & tag name silder -->
     <script>
+      function sortTable(n, e,) {
+        console.log(e)
+        var table,
+          rows,
+          switching,
+          i,
+          x,
+          y,
+          shouldSwitch,
+          dir,
+          switchcount = 0;
+          
+          
+          
+          console.log(table)
+          
+          table = document.getElementById(e.id);
+        if (table !== undefined && table !== null) {
+          switching = true;
+
+          dir = "asc";
+
+          while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < rows.length - 1; i++) {
+              shouldSwitch = false;
+
+              x = rows[i].getElementsByTagName("TD")[n];
+              y = rows[i + 1].getElementsByTagName("TD")[n];
+
+              if (dir == "asc") {
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                  shouldSwitch = true;
+                  break;
+                }
+              } else if (dir == "desc") {
+                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                  shouldSwitch = true;
+                  break;
+                }
+              }
+            }
+            if (shouldSwitch) {
+              rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+              switching = true;
+              switchcount++;
+            } else {
+              if (switchcount == 0 && dir == "asc") {
+                dir = "desc";
+                switching = true;
+              }
+            }
+          }
+        } 
+      }
       (function ($) {
         $(function () {
           $("#topitem").slick({

@@ -23,7 +23,7 @@ export default function DynamicDetailDashboard() {
             if (res.data != undefined) {
                 if (res.data.lstResult.length > 0) {
                     setAPIResult(res.data.lstResult)
-                    console.log('API Resp', res.data.lstResult)
+
                 }
             }
         })
@@ -48,7 +48,7 @@ export default function DynamicDetailDashboard() {
                                     {
                                         APIResult.map((key, i) => {
                                             if (i > 0) {
-                                                console.log('DetailCommonChartComp', key)
+
                                                 return <DetailCommonChartComp DetailConfig={key} />
                                             }
                                         })
